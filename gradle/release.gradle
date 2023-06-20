@@ -10,7 +10,7 @@ android.applicationVariants.all { variant ->
         }
         if (outputFileName != null && outputFileName.endsWith(".apk")) {
             // 命名格式“app_[版本号]_[其他信息].apk”
-            String fileName = "签名助手-release_${versionName}_${versionCode}.apk"
+            String fileName = "SignHook-release_${versionName}_${versionCode}.apk"
             //这里只能用相对路径，不然报错
             outputFileName = new File(fileName)
             println "outputFile=$outputFile"
