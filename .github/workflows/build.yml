@@ -84,20 +84,3 @@ jobs:
           token: ${{ secrets.RELEASE_TOKEN }}
           allow_override: true
           gzip: false
-
-      - name: Telegram Notify
-        uses: appleboy/telegram-action@master
-        with:
-          token: ${{ secrets.BOT_TOKEN }}
-          to: ${{ secrets.CHANGELOG_CHANNEL_ID }}
-          message: |
-            Here is the signed APK for ${{ github.event_name }}
-            Runner OS: ${{ runner.os }}
-            Event: ${{ github.event_name }}
-            Job ID: ${{ github.job }}
-            Triggered by: ${{ github.actor }}
-            Branch or TAG: ${{ github.ref }}
-            Base ref: ${{ github.base_ref }}
-            Head ref: ${{ github.head_ref }}
-            Commit SHA: ${{ github.sha }}
-          document: app/build/outputs/apk/release/*.apk
