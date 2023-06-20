@@ -1,0 +1,52 @@
+//APK重命名
+println "********** apk outputs **********"
+android.applicationVariants.all { variant ->
+    def versionName = rootProject.appVersionName
+    def versionCode = rootProject.appVersionCode
+    variant.outputs.all {
+        if (variant.buildType.name == 'debug') {
+            //debug版本不重定义输出目录，也不重命名
+            return
+        }
+        if (outputFileName != null && outputFileName.endsWith(".apk")) {
+            // 命名格式“app_[版本号]_[其他信息].apk”
+            String fileName = "签名助手-release_${versionName}_${versionCode}.apk"
+            //这里只能用相对路径，不然报错
+            outputFileName = new File(fileName)
+            println "outputFile=$outputFile"
+        }
+    }
+    //APK构建完成后，备份release版本及其混淆信息到指定目录
+    tasks.configureEach { it ->
+        def maybeNeedCopy = false
+        if (it.name.startsWith("assemble") && it.name.endsWith("Release")) {
+            maybeNeedCopy = true
+        }
+        if (maybeNeedCopy) {
+            it.doLast {
+                variant.outputs.each { output ->
+                    def isRelease = variant.buildType.name == 'release'
+                    File outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk') && isRelease) {
+                        File targetDir = rootProject.file("归档/v${versionName}-${versionCode}")
+                        File targetDir2 = rootProject.file("release")
+                        targetDir.mkdirs()
+                        targetDir2.mkdirs()
+                        copy {
+                            from outputFile
+                            into targetDir
+                        }
+                        copy {
+                            from outputFile
+                            into targetDir2
+                        }
+                        copy {
+                            from rootProject.file("app/mapping.txt")
+                            into targetDir
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

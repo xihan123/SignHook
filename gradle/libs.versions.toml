@@ -1,0 +1,91 @@
+[versions]
+agp = "8.2.0-alpha08"
+kotlin = "1.9.0-Beta"
+ksp = "1.9.0-Beta-1.0.11"
+hilt = "2.46.1"
+orbit = "6.0.0"
+hilt-androidx = "1.0.0"
+activity = "1.8.0-alpha05"
+accompanist = "0.31.3-beta"
+kJson = "1.5.1"
+lifecycle = "2.6.1"
+work-runtime = "2.8.1"
+room = "2.6.0-alpha01"
+paging = "3.2.0-beta01"
+yuki = "1.1.11"
+
+[libraries]
+multidex = { module = "androidx.multidex:multidex", version = "2.0.1" }
+core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0-alpha05" }
+appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-alpha02" }
+kotlin-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.5.1" }
+fast-json = { module = "com.alibaba.fastjson2:fastjson2-kotlin", version = "2.0.34" }
+
+lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycle" }
+
+work-runtime = { module = "androidx.work:work-runtime", version.ref = "work-runtime" }
+work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work-runtime" }
+
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
+paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging" }
+paging-compose = { module = "androidx.paging:paging-compose", version = "3.2.0-beta01" }
+
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kJson" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kJson" }
+
+#https://github.com/idisfkj/android-startup
+startup = { module = "androidx.startup:startup-runtime", version = "1.1.1" }
+
+#https://github.com/orbit-mvi/orbit-mvi
+orbit-core = { module = "org.orbit-mvi:orbit-core", version.ref = "orbit" }
+orbit-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbit" }
+orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" }
+
+io-coil-compose = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
+#https://github.com/skydoves/landscapist#coil
+landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.2" }
+#https://github.com/getActivity/XXPermissions
+xxpermissions = { module = "com.github.getActivity:XXPermissions", version = "18.2" }
+yukihook-api = { module = "com.highcapable.yukihookapi:api", version.ref = "yuki" }
+yukihook-ksp = { module = "com.highcapable.yukihookapi:ksp-xposed", version.ref = "yuki" }
+xposed-api = { module = "de.robv.android.xposed:api", version = "82" }
+compose-bom = { module = "dev.chrisbanes.compose:compose-bom", version = "2023.04.00-beta02" }
+ui = { module = "androidx.compose.ui:ui" }
+ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+foundation = { module = "androidx.compose.foundation:foundation" }
+runtime = { module = "androidx.compose.runtime:runtime" }
+animation = { module = "androidx.compose.animation:animation" }
+material = { module = "androidx.compose.material:material" }
+ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.6.0" }
+activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
+activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
+material3 = { module = "androidx.compose.material3:material3" }
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+accompanist-themeadapter-material3 = { module = "com.google.accompanist:accompanist-themeadapter-material3", version.ref = "accompanist" }
+com-google-android-material  = { module = "com.google.android.material:material", version = "1.10.0-alpha03" }
+
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt-androidx" }
+hiltx-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt-androidx" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-androidx" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlinKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+
+[bundles]

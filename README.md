@@ -1,0 +1,52 @@
+![SignHook](https://socialify.git.ci/xihan123/SignHook/image?description=1&forks=1&issues=1&language=1&name=1&owner=1&pulls=1&stargazers=1&theme=Auto)
+
+![above](https://img.shields.io/badge/Android-8.0%20or%20above-brightgreen.svg)
+[![Android CI](https://github.com/xihan123/SignHook/actions/workflows/build.yml/badge.svg)](https://github.com/xihan123/SignHook/actions/workflows/build.yml)
+[![Latest Release](https://img.shields.io/github/release/xihan123/SignHook.svg)](https://github.com/xihan123/SignHook/releases)
+![downloads](https://img.shields.io/github/downloads/xihan123/SignHook/total)
+
+---
+
+## SignHook(签名助手) Xp模块
+
+使用 [YukiHookAPI](https://github.com/fankes/YukiHookAPI)
+
+* 使用前注意给作用域包名的应用存储权限
+
+## 使用说明
+
+* 在右上角添加作用域包名并且在Lsp框架内勾选需要作用的应用
+
+          会让所有符合条件(伪造签名值不为空以及勾选选择框)  修改签名值为伪造的签名值
+
+* 比如我安装了一个修改版的某点阅读，无法使用QQ、VX调用登录 会提示"该应用非官方正版应用，xxx"
+
+          使用右上角的选择apk->选中官方版的apk->复制读取到的签名值->粘贴到伪造签名
+
+          每次修改后需要重启作用域包名的应用才会生效，调用者无需重启
+
+          在这就是某点不用重启，强行停止QQ就行
+
+
+## 免责声明
+
+* 该Xposed模块仅供学习交流使用，使用者必须自行承担使用该模块所带来的风险和责任。
+
+* 该Xposed模块可以修改系统行为，使用者应该仔细审查模块的操作并自行决定是否使用。
+* 使用该Xposed模块可能导致设备不稳定、崩溃和数据丢失等问题。作者不对任何因使用该模块而导致的问题承担责任。
+* 开发者保留对该Xposed模块的更新、修改、暂停、终止等权利，使用者应该自行确认其使用版本的安全性和稳定性。
+* 任何人因使用该Xposed模块而导致的任何问题，作者不承担任何责任，一切后果由使用者自行承担。
+* 对于使用该Xposed模块所产生的任何问题，作者不提供任何形式的技术支持和解决方案。
+
+请在使用该Xposed模块之前认真阅读以上免责声明并自行权衡风险和利益，如有异议请勿使用。如果您使用了该Xposed模块，即代表您已经完全接受本免责声明。
+
+---
+
+## 截图
+
+![image0](Screenshots/0.png)
+![image1](Screenshots/1.png)
+![image2](Screenshots/2.png)
+![image3](Screenshots/3.png)
+
+---
