@@ -3,6 +3,19 @@
 ## [1.0.1](https://github.com/xihan123/SignHook/compare/v1.0.1...v1.0.1) (2023-06-22)
 
 
+### Bug Fixes
+
+* **deps:** update dependency androidx.paging:paging-compose to v3.2.0-rc01 ([4fc3c85](https://github.com/xihan123/SignHook/commit/4fc3c859ff393b4f8b402188ddaf01fbf1bb998a))
+
+
+### Miscellaneous
+
+* **master:** release 1.0.1 ([ed4dfaa](https://github.com/xihan123/SignHook/commit/ed4dfaa0a52d084b546a988c24d81b7d02774a57))
+* **master:** release 1.0.1 ([60186fe](https://github.com/xihan123/SignHook/commit/60186fed423d42d6dd2efe65669086cc18b56996))
+
+## [1.0.1](https://github.com/xihan123/SignHook/compare/v1.0.1...v1.0.1) (2023-06-22)
+
+
 ### Miscellaneous
 
 * **master:** release 1.0.1 ([60186fe](https://github.com/xihan123/SignHook/commit/60186fed423d42d6dd2efe65669086cc18b56996))
