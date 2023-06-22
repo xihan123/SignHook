@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.material.Checkbox
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -34,6 +35,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -56,9 +58,11 @@ import cn.xihan.sign.component.SearchByTextAppBar
 import cn.xihan.sign.component.items
 import cn.xihan.sign.hook.HookEntry.Companion.optionModel
 import cn.xihan.sign.utli.getApkSignature
+import cn.xihan.sign.utli.hideAppIcon
 import cn.xihan.sign.utli.jumpToPermission
 import cn.xihan.sign.utli.rememberMutableStateOf
 import cn.xihan.sign.utli.requestPermission
+import cn.xihan.sign.utli.showAppIcon
 import cn.xihan.sign.utli.showSignatureDialog
 import cn.xihan.sign.utli.writeConfigFile
 import com.hjq.permissions.Permission
@@ -127,6 +131,17 @@ class MainActivity : BaseActivity() {
             viewModel.updateSignatureList()
             viewModel.querySignature(query)
         })
+        val hideIcon = rememberMutableStateOf(value = optionModel.hideIcon)
+
+        LaunchedEffect(hideIcon.value) {
+            if (hideIcon.value) {
+                hideAppIcon()
+            } else {
+                showAppIcon()
+            }
+        }
+
+
         Scaffold(
             modifier = Modifier
                 .fillMaxSize()
@@ -184,6 +199,31 @@ class MainActivity : BaseActivity() {
                                     onClick = {
                                         // 选择后缀为apk的文件
                                         getContent.launch("application/vnd.android.package-archive")
+                                    }
+                                )
+
+                                MyDropdownMenuItem(
+                                    topAppBarExpanded = topAppBarExpanded,
+                                    text = {
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            Text(stringResource(id = R.string.hide_icon))
+                                            Checkbox(
+                                                checked = hideIcon.value,
+                                                onCheckedChange = {
+                                                    hideIcon.value = it
+                                                    optionModel.hideIcon = it
+                                                    writeConfigFile()
+                                                }
+                                            )
+                                        }
+                                    },
+                                    onClick = {
+                                        topAppBarExpanded.value = true
+                                        hideIcon.value = !hideIcon.value
+                                        optionModel.hideIcon = hideIcon.value
+                                        writeConfigFile()
                                     }
                                 )
 

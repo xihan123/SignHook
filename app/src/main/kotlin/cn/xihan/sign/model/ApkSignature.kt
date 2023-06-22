@@ -38,13 +38,20 @@ data class ApkSignature(
     var isForged: Boolean = false
 ) : Parcelable
 
+
 /**
- * Option
+ * 选择模型
+ * @author MissYang
+ * @date 2023/06/22
+ * @param [hideIcon] 是否隐藏图标
+ * @param [packageNameList] 包名称列表
+ * @param [apkSignatureList] apk签名列表
  */
 @Keep
 @Serializable
 @Parcelize
 data class OptionModel(
+    var hideIcon: Boolean = false,
     var packageNameList: List<String> = listOf(
         "com.tencent.mm",
         "com.tencent.mobileqq",

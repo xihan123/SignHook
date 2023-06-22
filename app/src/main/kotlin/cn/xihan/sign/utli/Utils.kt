@@ -1,5 +1,6 @@
 package cn.xihan.sign.utli
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
@@ -23,6 +24,7 @@ import cn.xihan.sign.hook.HookEntry.Companion.optionModel
 import cn.xihan.sign.model.ApkSignature
 import cn.xihan.sign.model.ApkSignatureDao
 import cn.xihan.sign.model.OptionModel
+import cn.xihan.sign.ui.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.log.loggerE
 import com.hjq.permissions.Permission
@@ -281,6 +283,34 @@ fun Context.showSignatureDialog(signature: String) {
 
 fun Context.toast(message: CharSequence?): Toast =
     Toast.makeText(this, message, Toast.LENGTH_SHORT).apply { show() }
+
+/**
+ * 隐藏应用图标
+ */
+fun Context.hideAppIcon() {
+    val componentName = ComponentName(this, MainActivity::class.java.name)
+    if (packageManager.getComponentEnabledSetting(componentName) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {
+        packageManager.setComponentEnabledSetting(
+            componentName,
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP
+        )
+    }
+}
+
+/**
+ * 显示应用图标
+ */
+fun Context.showAppIcon() {
+    val componentName = ComponentName(this, MainActivity::class.java.name)
+    if (packageManager.getComponentEnabledSetting(componentName) != PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
+        packageManager.setComponentEnabledSetting(
+            componentName,
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+            PackageManager.DONT_KILL_APP
+        )
+    }
+}
 
 @Database(
     entities = [ApkSignature::class],
