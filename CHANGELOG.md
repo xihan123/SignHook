@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/xihan123/SignHook/compare/v1.0.1...v1.0.1) (2023-06-22)
+
+
+### Miscellaneous
+
+* **master:** release 1.0.1 ([60186fe](https://github.com/xihan123/SignHook/commit/60186fed423d42d6dd2efe65669086cc18b56996))
+
 ## [1.0.1](https://github.com/xihan123/SignHook/compare/v1.0.0...v1.0.1) (2023-06-22)
 
 
