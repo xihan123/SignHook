@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.0.1](https://github.com/xihan123/SignHook/compare/v1.0.1...v1.0.1) (2023-07-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency androidx.paging:paging-compose to v3.2.0-rc01 ([4fc3c85](https://github.com/xihan123/SignHook/commit/4fc3c859ff393b4f8b402188ddaf01fbf1bb998a))
+* **deps:** update paging to v3.2.0-rc01 ([cd6c1b2](https://github.com/xihan123/SignHook/commit/cd6c1b2d57555522ab7fc540c074f798cb4cdc8d))
+* **deps:** update room to v2.6.0-alpha02 ([5114ef6](https://github.com/xihan123/SignHook/commit/5114ef6c2d2398c7595d7ee6bd2713f405db801a))
+
+
+### Miscellaneous
+
+* **deps:** update dependency gradle to v8.2 ([7ac8351](https://github.com/xihan123/SignHook/commit/7ac8351a913bc2f3f9663cfdf11dc8d08202ec25))
+* **master:** release 1.0.1 ([642e15a](https://github.com/xihan123/SignHook/commit/642e15ac6e717ac7951f2d3e6f7f2db41295de2f))
+* **master:** release 1.0.1 ([ec80853](https://github.com/xihan123/SignHook/commit/ec80853a5001e38a78809fc6f37423f9e924a422))
+* **master:** release 1.0.1 ([4649a51](https://github.com/xihan123/SignHook/commit/4649a51f2ce4d9645852d51de0ccbae4bc32d16a))
+* **master:** release 1.0.1 ([ed4dfaa](https://github.com/xihan123/SignHook/commit/ed4dfaa0a52d084b546a988c24d81b7d02774a57))
+* **master:** release 1.0.1 ([60186fe](https://github.com/xihan123/SignHook/commit/60186fed423d42d6dd2efe65669086cc18b56996))
+
 ## [1.0.1](https://github.com/xihan123/SignHook/compare/v1.0.1...v1.0.1) (2023-06-23)
 
 
