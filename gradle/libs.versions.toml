@@ -1,7 +1,7 @@
 [versions]
 agp = "8.0.2"
 kotlin = "1.9.0-RC"
-ksp = "1.9.0-RC-1.0.11"
+ksp = "1.9.0-1.0.11"
 hilt = "2.46.1"
 orbit = "6.0.0"
 hilt-androidx = "1.0.0"
