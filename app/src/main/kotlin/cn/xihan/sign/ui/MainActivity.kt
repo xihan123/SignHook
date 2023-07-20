@@ -62,8 +62,10 @@ import cn.xihan.sign.utli.hideAppIcon
 import cn.xihan.sign.utli.jumpToPermission
 import cn.xihan.sign.utli.rememberMutableStateOf
 import cn.xihan.sign.utli.requestPermission
+import cn.xihan.sign.utli.restartApplication
 import cn.xihan.sign.utli.showAppIcon
 import cn.xihan.sign.utli.showSignatureDialog
+import cn.xihan.sign.utli.toast
 import cn.xihan.sign.utli.writeConfigFile
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
@@ -87,9 +89,8 @@ class MainActivity : BaseActivity() {
                     ?.let { file ->
                         getApkSignature(file)?.let { signature ->
                             showSignatureDialog(signature)
-                        }
-                    }
-
+                        } ?: toast(getString(R.string.get_sign_error))
+                    } ?: toast(getString(R.string.get_file_error))
             }
         }
 
@@ -105,7 +106,6 @@ class MainActivity : BaseActivity() {
          */
 
     }
-
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
@@ -329,6 +329,7 @@ class MainActivity : BaseActivity() {
                     Button(onClick = {
                         requestPermission(onGranted = {
                             permission.value = true
+                            restartApplication()
                         }, onDenied = {
                             permission.value = false
                             jumpToPermission()

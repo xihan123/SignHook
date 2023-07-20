@@ -1,5 +1,6 @@
 package cn.xihan.sign.utli
 
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
@@ -32,6 +33,7 @@ import com.hjq.permissions.XXPermissions
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
+import kotlin.system.exitProcess
 
 /**
  * @项目名 : 签名助手
@@ -310,6 +312,18 @@ fun Context.showAppIcon() {
             PackageManager.DONT_KILL_APP
         )
     }
+}
+
+/**
+ * 重启当前应用
+ */
+fun Activity.restartApplication() {
+    // https://stackoverflow.com/a/58530756
+    val pm = packageManager
+    val intent = pm.getLaunchIntentForPackage(packageName)
+    finishAffinity()
+    startActivity(intent)
+    exitProcess(0)
 }
 
 @Database(
