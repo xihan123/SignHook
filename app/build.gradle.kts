@@ -81,9 +81,12 @@ android {
     }
     kotlinOptions.jvmTarget = "17"
 
-    buildFeatures.compose = true
+    buildFeatures{
+        compose = true
+        buildConfig = true
+    }
 
-    composeOptions.kotlinCompilerExtensionVersion = "1.4.8-dev-k1.9.0-RC-5532d15c918"
+    composeOptions.kotlinCompilerExtensionVersion = "1.5.0-dev-k1.9.0-6a60475e07f"
 
     packagingOptions.apply {
         resources.excludes += mutableSetOf(
@@ -172,10 +175,14 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.UsesKotlinJavaToolchain
     kotlinJavaToolchain.toolchain.use(customLauncher)
 }
 
-//kotlin {
+kotlin {
+    compilerOptions {
+        languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
+        apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
+    }
 //    sourceSets.all {
 //        languageSettings.apply {
 //            languageVersion = "2.0"
 //        }
 //    }
-//}
+}

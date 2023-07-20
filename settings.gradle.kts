@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "签名助手"
+rootProject.name = "SignHook"
 include(":app")
