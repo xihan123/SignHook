@@ -11,7 +11,7 @@ kJson = "1.5.1"
 lifecycle = "2.6.1"
 work-runtime = "2.8.1"
 room = "2.6.0-alpha02"
-paging = "3.2.0-rc01"
+paging = "3.2.0"
 yuki = "1.1.11"
 
 [libraries]
