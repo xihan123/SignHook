@@ -5,6 +5,22 @@
 
 ### CI
 
+* canary.yml ([f9d6bd4](https://github.com/xihan123/SignHook/commit/f9d6bd465ca0df57e47c571f53c072245fffa1c8))
+* canary.yml ([9515d0a](https://github.com/xihan123/SignHook/commit/9515d0a35bf81b1d3e134c229b9a40a200e31441))
+
+
+### Miscellaneous
+
+* **master:** release 1.0.2 ([f2fdec9](https://github.com/xihan123/SignHook/commit/f2fdec92d5335ea940c17871e2ab4fdd8f56218d))
+* **master:** release 1.0.2 ([28d7f68](https://github.com/xihan123/SignHook/commit/28d7f688ba379bceddabe4bbdd02edfc8acfb089))
+* **master:** release 1.0.2 ([a22aaac](https://github.com/xihan123/SignHook/commit/a22aaac8a9c6d5682afafbe5a37ffd35894c3b53))
+* 更新依赖库 ([831fe60](https://github.com/xihan123/SignHook/commit/831fe605828d0d38ba64bf6ea58103c24661ff7e))
+
+## [1.0.2](https://github.com/xihan123/SignHook/compare/v1.0.2...v1.0.2) (2023-07-27)
+
+
+### CI
+
 * canary.yml ([9515d0a](https://github.com/xihan123/SignHook/commit/9515d0a35bf81b1d3e134c229b9a40a200e31441))
 
 
