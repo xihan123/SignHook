@@ -10,7 +10,7 @@ accompanist = "0.31.4-beta"
 kJson = "1.5.1"
 lifecycle = "2.6.1"
 work-runtime = "2.8.1"
-room = "2.6.0-alpha02"
+room = "2.6.0-alpha03"
 paging = "3.2.0-rc01"
 yuki = "1.1.11"
 
