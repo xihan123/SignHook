@@ -1,9 +1,6 @@
 import java.io.FileInputStream
 import java.util.Properties
 
-apply {
-    from("${rootProject.projectDir}/gradle/release.gradle")
-}
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
@@ -13,14 +10,22 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.kotlinKapt)
     alias(libs.plugins.hiltAndroid)
+    alias(libs.plugins.jgit)
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
 val keystoreProperties = Properties()
 keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
-val androidTargetSdkVersion by extra(33)
+val repo = jgit.repo()
+val commitCount = (repo?.commitCount("refs/remotes/origin/master") ?: 1) + 1
+val latestTag = repo?.latestTag?.removePrefix("v") ?: "2.2.0-SNAPSHOT"
+
+val verCode by extra(commitCount)
+val verName by extra(latestTag)
+val androidTargetSdkVersion by extra(34)
 val androidMinSdkVersion by extra(26)
+
 android {
     namespace = "cn.xihan.sign"
     compileSdk = androidTargetSdkVersion
@@ -47,8 +52,8 @@ android {
         applicationId = "cn.xihan.sign"
         minSdk = androidMinSdkVersion
         targetSdk = androidTargetSdkVersion
-        versionCode = rootProject.extra["appVersionCode"] as Int
-        versionName = rootProject.extra["appVersionName"] as String
+        versionCode = verCode
+        versionName = verName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -73,8 +78,56 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
+
+            applicationVariants.all {
+                outputs.all {
+                    this as com.android.build.gradle.internal.api.ApkVariantOutputImpl
+                    if (buildType.name != "debug" && outputFileName.endsWith(".apk")) {
+                        val apkName = "SignHook-release_${verName}_$verCode.apk"
+                        outputFileName = apkName
+                    }
+                }
+                tasks.configureEach {
+                    var maybeNeedCopy = false
+                    if (name.startsWith("assembleRelease")) {
+                        maybeNeedCopy = true
+                    }
+                    if (maybeNeedCopy) {
+                        doLast {
+                            this@all.outputs.all {
+                                this as com.android.build.gradle.internal.api.ApkVariantOutputImpl
+                                if (buildType.name != "debug" && outputFileName.endsWith(".apk")) {
+                                    if (outputFile != null && outputFileName.endsWith(".apk")) {
+                                        val targetDir =
+                                            rootProject.file("归档/v${verName}-${verCode}")
+                                        val targetDir2 = rootProject.file("release")
+                                        targetDir.mkdirs()
+                                        targetDir2.mkdirs()
+                                        println("path: ${outputFile.absolutePath}")
+                                        copy {
+                                            from(outputFile)
+                                            into(targetDir)
+                                        }
+                                        copy {
+                                            from(outputFile)
+                                            into(targetDir2)
+                                        }
+                                        copy {
+                                            from(rootProject.file("app/build/outputs/mapping/release/mapping.txt"))
+                                            into(targetDir)
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+            }
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

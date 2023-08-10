@@ -25,12 +25,13 @@ jobs:
       - name: base64-to-file
         id: write_file
         uses: timheuer/base64-to-file@v1.2
+        if: ${{ ( github.event_name != 'pull_request' && github.ref == 'refs/heads/master' ) || github.ref_type == 'tag' }}
         with:
           fileName: 'key.jks'
           encodedString: ${{ secrets.SIGNING_KEY }}
 
       - name: Write key
-        if: github.event_name != 'pull_request'
+        if: ${{ ( github.event_name != 'pull_request' && github.ref == 'refs/heads/master' ) || github.ref_type == 'tag' }}
         run: |
           touch keystore.properties
           echo storePassword='${{ secrets.KEY_STORE_PASSWORD }}' >> keystore.properties

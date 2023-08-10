@@ -1,12 +1,12 @@
 [versions]
 agp = "8.1.0"
 kotlin = "1.9.0"
-ksp = "1.9.0-1.0.12"
+ksp = "1.9.0-1.0.13"
 hilt = "2.47"
 orbit = "6.0.0"
 hilt-androidx = "1.0.0"
 activity = "1.8.0-alpha06"
-accompanist = "0.31.4-beta"
+accompanist = "0.33.0-aplha"
 kJson = "1.5.1"
 lifecycle = "2.6.1"
 work-runtime = "2.8.1"
@@ -16,10 +16,10 @@ yuki = "1.1.11"
 
 [libraries]
 multidex = { module = "androidx.multidex:multidex", version = "2.0.1" }
-core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0-beta01" }
+core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0-rc01" }
 appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-alpha03" }
 kotlin-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.5.1" }
-fast-json = { module = "com.alibaba.fastjson2:fastjson2-kotlin", version = "2.0.37" }
+fast-json = { module = "com.alibaba.fastjson2:fastjson2-kotlin", version = "2.0.38" }
 
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
@@ -51,7 +51,7 @@ orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" 
 
 io-coil-compose = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
 #https://github.com/skydoves/landscapist#coil
-landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.3" }
+landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.6" }
 #https://github.com/getActivity/XXPermissions
 xxpermissions = { module = "com.github.getActivity:XXPermissions", version = "18.2" }
 yukihook-api = { module = "com.highcapable.yukihookapi:api", version.ref = "yuki" }
@@ -65,7 +65,7 @@ runtime = { module = "androidx.compose.runtime:runtime" }
 animation = { module = "androidx.compose.animation:animation" }
 material = { module = "androidx.compose.material:material" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.6.0" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.7.0" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 material3 = { module = "androidx.compose.material3:material3" }
@@ -87,5 +87,5 @@ kotlinKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-
+jgit = { id = "org.lsposed.lsplugin.jgit", version = "1.1" }
 [bundles]
