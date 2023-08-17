@@ -51,7 +51,7 @@ orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" 
 
 io-coil-compose = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
 #https://github.com/skydoves/landscapist#coil
-landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.6" }
+landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.7" }
 #https://github.com/getActivity/XXPermissions
 xxpermissions = { module = "com.github.getActivity:XXPermissions", version = "18.2" }
 yukihook-api = { module = "com.highcapable.yukihookapi:api", version.ref = "yuki" }
