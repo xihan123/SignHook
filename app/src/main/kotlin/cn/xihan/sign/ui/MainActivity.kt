@@ -1,10 +1,20 @@
+@file:OptIn(
+    androidx.compose.material.ExperimentalMaterialApi::class,
+    androidx.compose.material3.ExperimentalMaterial3Api::class
+)
+
 package cn.xihan.sign.ui
 
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,8 +27,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.material.Checkbox
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.MoreVert
@@ -28,12 +36,17 @@ import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -42,13 +55,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import cn.xihan.sign.R
-import cn.xihan.sign.base.BaseActivity
 import cn.xihan.sign.component.AnywhereDropdown
 import cn.xihan.sign.component.ApkInfoItem
 import cn.xihan.sign.component.EmptyList
@@ -74,9 +87,8 @@ import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
 import java.io.File
 
-@OptIn(ExperimentalMaterialApi::class)
 @AndroidEntryPoint
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MainViewModel>()
 
@@ -95,7 +107,13 @@ class MainActivity : BaseActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        setContent {
+            STheme {
+                ComposeContent()
+            }
+        }
         // TODO: 在模拟器上会无限崩溃 暂时无法解决 如需要可以自己取消注释
         /*
         val getAllApkInfo = OneTimeWorkRequestBuilder<ApkInfoWorker>()
@@ -107,9 +125,8 @@ class MainActivity : BaseActivity() {
 
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    override fun ComposeContent() {
+    fun ComposeContent() {
         val state by viewModel.collectAsState()
         val coroutineScope = rememberCoroutineScope()
         val snackbarHostState = remember { SnackbarHostState() }
@@ -381,4 +398,26 @@ class MainActivity : BaseActivity() {
 
         }
     }
+}
+
+
+@Composable
+fun STheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
+
+        darkTheme -> darkColorScheme()
+        else -> lightColorScheme()
+    }
+    MaterialTheme(
+        colorScheme = colorScheme,
+        content = content
+    )
 }
