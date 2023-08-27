@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/xihan123/SignHook/compare/v1.0.5...v1.1.0) (2023-08-27)
+
+
+### Features
+
+* 支持 `Android12`+ 动态取色 ([bca36ed](https://github.com/xihan123/SignHook/commit/bca36ed0f6daa19131fdf379226f76566b5400e6))
+
+
+### Miscellaneous
+
+* 更新依赖库 ([9e21ad0](https://github.com/xihan123/SignHook/commit/9e21ad00e5f59eb9a20195850c9274eff071f6bf))
+
 ## [1.0.5](https://github.com/xihan123/SignHook/compare/v1.0.4...v1.0.5) (2023-08-22)
 
 
