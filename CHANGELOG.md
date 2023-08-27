@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/xihan123/SignHook/compare/v1.1.0...v1.1.1) (2023-08-27)
+
+
+### Bug Fixes
+
+* **deps:** update room to v2.6.0-beta01 ([7565bb3](https://github.com/xihan123/SignHook/commit/7565bb3f6e85391a90d0b7b5ab19296225c6a807))
+
 ## [1.1.0](https://github.com/xihan123/SignHook/compare/v1.0.5...v1.1.0) (2023-08-27)
 
 
