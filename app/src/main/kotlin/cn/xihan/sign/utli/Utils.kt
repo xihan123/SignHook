@@ -319,8 +319,7 @@ fun Context.showAppIcon() {
  */
 fun Activity.restartApplication() {
     // https://stackoverflow.com/a/58530756
-    val pm = packageManager
-    val intent = pm.getLaunchIntentForPackage(packageName)
+    val intent = packageManager.getLaunchIntentForPackage(packageName)
     finishAffinity()
     startActivity(intent)
     exitProcess(0)

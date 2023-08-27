@@ -18,7 +18,7 @@ val keystoreProperties = Properties()
 keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 val repo = jgit.repo()
-val commitCount = (repo?.commitCount("refs/remotes/origin/master") ?: 1) + 1
+val commitCount = (repo?.commitCount("refs/remotes/origin/master") ?: 1) + 23
 val latestTag = repo?.latestTag?.removePrefix("v") ?: "2.2.0-SNAPSHOT"
 
 val verCode by extra(commitCount)
@@ -29,7 +29,6 @@ val androidMinSdkVersion by extra(26)
 android {
     namespace = "cn.xihan.sign"
     compileSdk = androidTargetSdkVersion
-    compileSdkPreview = "UpsideDownCake"
 
     androidResources.additionalParameters += arrayOf(
         "--allow-reserved-package-id",
@@ -139,7 +138,7 @@ android {
         buildConfig = true
     }
 
-    composeOptions.kotlinCompilerExtensionVersion = "1.5.0-dev-k1.9.0-6a60475e07f"
+    composeOptions.kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
 
     packagingOptions.apply {
         resources.excludes += mutableSetOf(
@@ -163,7 +162,6 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.activity.ktx)
     implementation(libs.kotlin.json)
-//    implementation(libs.fast.json)
     implementation(libs.landscapist.coil) {
         exclude(group = "io.coil-kt")
     }
@@ -210,8 +208,6 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.navigation.compose)
     implementation(libs.activity.compose)
-    implementation(libs.accompanist.systemuicontroller)
-    implementation(libs.accompanist.themeadapter.material3)
     implementation(libs.com.google.android.material)
 
     implementation(libs.yukihook.api)
