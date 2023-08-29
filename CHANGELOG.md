@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/xihan123/SignHook/compare/v1.1.1...v1.1.2) (2023-08-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.github.skydoves:landscapist-coil to v2.2.8 ([96020b6](https://github.com/xihan123/SignHook/commit/96020b6b317153f44593983b5227d23e223ef8b6))
+
 ## [1.1.1](https://github.com/xihan123/SignHook/compare/v1.1.0...v1.1.1) (2023-08-27)
 
 
