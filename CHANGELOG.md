@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/xihan123/SignHook/compare/v1.1.2...v1.1.3) (2023-08-31)
+
+
+### Miscellaneous
+
+* **deps:** update hilt to v2.48 ([d07ab99](https://github.com/xihan123/SignHook/commit/d07ab997754543420458033167a32cc13c68a65f))
+
 ## [1.1.2](https://github.com/xihan123/SignHook/compare/v1.1.1...v1.1.2) (2023-08-29)
 
 
