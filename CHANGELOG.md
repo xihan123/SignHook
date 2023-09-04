@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/xihan123/SignHook/compare/v1.1.3...v1.1.4) (2023-09-04)
+
+
+### Miscellaneous
+
+* **deps:** update actions/checkout action to v4 ([92e9b38](https://github.com/xihan123/SignHook/commit/92e9b38a1a44fcf88557cc4c69115f4ffa1d920a))
+
 ## [1.1.3](https://github.com/xihan123/SignHook/compare/v1.1.2...v1.1.3) (2023-08-31)
 
 
