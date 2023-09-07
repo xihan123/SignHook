@@ -10,7 +10,7 @@ kJson = "1.6.0"
 lifecycle = "2.6.1"
 work-runtime = "2.8.1"
 room = "2.6.0-beta01"
-paging = "3.2.0-rc01"
+paging = "3.2.1"
 yuki = "1.1.11"
 compose-compiler = "1.5.3-dev-k1.9.10-593b4c95fce"
 
