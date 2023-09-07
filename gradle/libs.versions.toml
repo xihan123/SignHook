@@ -36,7 +36,7 @@ room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
 paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
 paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging" }
-paging-compose = { module = "androidx.paging:paging-compose", version = "3.2.0-rc01" }
+paging-compose = { module = "androidx.paging:paging-compose", version = "3.2.1" }
 
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kJson" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kJson" }
