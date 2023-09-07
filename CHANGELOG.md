@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5](https://github.com/xihan123/SignHook/compare/v1.1.4...v1.1.5) (2023-09-07)
+
+
+### Bug Fixes
+
+* **deps:** update paging to v3.2.1 ([323b5fb](https://github.com/xihan123/SignHook/commit/323b5fbf72f1d5f8bb75eeb3aef97d12fa573512))
+
 ## [1.1.4](https://github.com/xihan123/SignHook/compare/v1.1.3...v1.1.4) (2023-09-04)
 
 
