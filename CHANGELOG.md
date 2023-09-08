@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6](https://github.com/xihan123/SignHook/compare/v1.1.5...v1.1.6) (2023-09-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.android.material:material to v1.10.0-beta01 ([1a84130](https://github.com/xihan123/SignHook/commit/1a84130cef0da8d7ac85eef2e63dcdc56aa373e2))
+
 ## [1.1.5](https://github.com/xihan123/SignHook/compare/v1.1.4...v1.1.5) (2023-09-07)
 
 
