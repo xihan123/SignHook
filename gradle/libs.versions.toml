@@ -1,22 +1,22 @@
 [versions]
 agp = "8.1.1"
-kotlin = "1.9.10"
-ksp = "1.9.10-1.0.13"
-hilt = "2.47"
-orbit = "6.0.0"
+kotlin = "1.9.20-Beta"
+ksp = "1.9.20-Beta-1.0.13"
+hilt = "2.48"
+orbit = "6.1.0"
 hilt-androidx = "1.0.0"
-activity = "1.8.0-alpha07"
+activity = "1.8.0-rc01"
 kJson = "1.6.0"
-lifecycle = "2.6.1"
+lifecycle = "2.6.2"
 work-runtime = "2.8.1"
-room = "2.6.0-alpha03"
-paging = "3.2.0-rc01"
+room = "2.6.0-rc01"
+paging = "3.2.1"
 yuki = "1.1.11"
-compose-compiler = "1.5.3-dev-k1.9.10-593b4c95fce"
+compose-compiler = "1.5.4-dev-k1.9.20-Beta-692cbee7ddd"
 
 [libraries]
 multidex = { module = "androidx.multidex:multidex", version = "2.0.1" }
-core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0-rc01" }
+core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0" }
 appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-alpha03" }
 kotlin-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.6.0" }
 #fast-json = { module = "com.alibaba.fastjson2:fastjson2-kotlin", version = "2.0.38" }
@@ -36,7 +36,7 @@ room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
 paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
 paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging" }
-paging-compose = { module = "androidx.paging:paging-compose", version = "3.2.0-rc01" }
+paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }
 
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kJson" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kJson" }
@@ -51,13 +51,13 @@ orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" 
 
 io-coil-compose = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
 #https://github.com/skydoves/landscapist#coil
-landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.7" }
+landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.8" }
 #https://github.com/getActivity/XXPermissions
 xxpermissions = { module = "com.github.getActivity:XXPermissions", version = "18.3" }
 yukihook-api = { module = "com.highcapable.yukihookapi:api", version.ref = "yuki" }
 yukihook-ksp = { module = "com.highcapable.yukihookapi:ksp-xposed", version.ref = "yuki" }
 xposed-api = { module = "de.robv.android.xposed:api", version = "82" }
-compose-bom = { module = "dev.chrisbanes.compose:compose-bom", version = "2023.07.00-alpha02" }
+compose-bom = { module = "dev.chrisbanes.compose:compose-bom", version = "2023.10.00-alpha02" }
 ui = { module = "androidx.compose.ui:ui" }
 ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 foundation = { module = "androidx.compose.foundation:foundation" }
@@ -65,11 +65,11 @@ runtime = { module = "androidx.compose.runtime:runtime" }
 animation = { module = "androidx.compose.animation:animation" }
 material = { module = "androidx.compose.material:material" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.7.1" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.7.3" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 material3 = { module = "androidx.compose.material3:material3" }
-com-google-android-material  = { module = "com.google.android.material:material", version = "1.10.0-alpha06" }
+com-google-android-material  = { module = "com.google.android.material:material", version = "1.10.0-beta01" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
