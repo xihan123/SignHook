@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.7](https://github.com/xihan123/SignHook/compare/v1.1.6...v1.1.7) (2023-09-20)
+
+
+### Bug Fixes
+
+* **deps:** update orbit to v6.1.0 ([b321ac6](https://github.com/xihan123/SignHook/commit/b321ac62926682562b2ff16af16c8649a60be75c))
+
 ## [1.1.6](https://github.com/xihan123/SignHook/compare/v1.1.5...v1.1.6) (2023-09-08)
 
 
