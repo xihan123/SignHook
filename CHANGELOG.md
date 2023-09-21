@@ -1,5 +1,54 @@
 # Changelog
 
+## [1.1.7](https://github.com/xihan123/SignHook/compare/v1.1.6...v1.1.7) (2023-09-20)
+
+
+### Bug Fixes
+
+* **deps:** update orbit to v6.1.0 ([b321ac6](https://github.com/xihan123/SignHook/commit/b321ac62926682562b2ff16af16c8649a60be75c))
+
+## [1.1.6](https://github.com/xihan123/SignHook/compare/v1.1.5...v1.1.6) (2023-09-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.android.material:material to v1.10.0-beta01 ([1a84130](https://github.com/xihan123/SignHook/commit/1a84130cef0da8d7ac85eef2e63dcdc56aa373e2))
+
+## [1.1.5](https://github.com/xihan123/SignHook/compare/v1.1.4...v1.1.5) (2023-09-07)
+
+
+### Bug Fixes
+
+* **deps:** update paging to v3.2.1 ([323b5fb](https://github.com/xihan123/SignHook/commit/323b5fbf72f1d5f8bb75eeb3aef97d12fa573512))
+
+## [1.1.4](https://github.com/xihan123/SignHook/compare/v1.1.3...v1.1.4) (2023-09-04)
+
+
+### Miscellaneous
+
+* **deps:** update actions/checkout action to v4 ([92e9b38](https://github.com/xihan123/SignHook/commit/92e9b38a1a44fcf88557cc4c69115f4ffa1d920a))
+
+## [1.1.3](https://github.com/xihan123/SignHook/compare/v1.1.2...v1.1.3) (2023-08-31)
+
+
+### Miscellaneous
+
+* **deps:** update hilt to v2.48 ([d07ab99](https://github.com/xihan123/SignHook/commit/d07ab997754543420458033167a32cc13c68a65f))
+
+## [1.1.2](https://github.com/xihan123/SignHook/compare/v1.1.1...v1.1.2) (2023-08-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.github.skydoves:landscapist-coil to v2.2.8 ([96020b6](https://github.com/xihan123/SignHook/commit/96020b6b317153f44593983b5227d23e223ef8b6))
+
+## [1.1.1](https://github.com/xihan123/SignHook/compare/v1.1.0...v1.1.1) (2023-08-27)
+
+
+### Bug Fixes
+
+* **deps:** update room to v2.6.0-beta01 ([7565bb3](https://github.com/xihan123/SignHook/commit/7565bb3f6e85391a90d0b7b5ab19296225c6a807))
+
 ## [1.1.0](https://github.com/xihan123/SignHook/compare/v1.0.5...v1.1.0) (2023-08-27)
 
 
