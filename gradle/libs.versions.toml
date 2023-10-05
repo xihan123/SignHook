@@ -69,7 +69,7 @@ navigation-compose = { module = "androidx.navigation:navigation-compose", versio
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 material3 = { module = "androidx.compose.material3:material3" }
-com-google-android-material  = { module = "com.google.android.material:material", version = "1.10.0-beta01" }
+com-google-android-material  = { module = "com.google.android.material:material", version = "1.10.0" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
