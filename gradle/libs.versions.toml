@@ -11,7 +11,7 @@ lifecycle = "2.6.2"
 work-runtime = "2.8.1"
 room = "2.6.0-rc01"
 paging = "3.2.1"
-yuki = "1.1.11"
+yuki = "1.2.0"
 compose-compiler = "1.5.4-dev-k1.9.20-Beta-692cbee7ddd"
 
 [libraries]
