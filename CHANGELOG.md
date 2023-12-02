@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.10](https://github.com/xihan123/SignHook/compare/v1.1.9...v1.1.10) (2023-12-02)
+
+
+### Miscellaneous
+
+* 更新依赖库 ([e93151c](https://github.com/xihan123/SignHook/commit/e93151c5d5f7f6a6e46cdf58d9120b4e306d6558))
+
 ## [1.1.9](https://github.com/xihan123/SignHook/compare/v1.1.8...v1.1.9) (2023-12-02)
 
 
