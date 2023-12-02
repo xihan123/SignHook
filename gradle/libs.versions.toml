@@ -6,10 +6,10 @@ hilt = "2.49"
 orbit = "6.1.0"
 hilt-androidx = "1.0.0"
 activity = "1.8.1"
-kJson = "1.6.1"
+kJson = "1.6.2"
 lifecycle = "2.6.2"
 work-runtime = "2.8.1"
-room = "2.6.0"
+room = "2.6.1"
 paging = "3.2.1"
 yuki = "1.2.0"
 compose-compiler = "1.5.5-dev-k1.9.21-163bb051fe5"
@@ -50,7 +50,7 @@ orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" 
 
 io-coil-compose = { module = "io.coil-kt:coil-compose", version = "2.5.0" }
 #https://github.com/skydoves/landscapist#coil
-landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.8" }
+landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.12" }
 #https://github.com/getActivity/XXPermissions
 xxpermissions = { module = "com.github.getActivity:XXPermissions", version = "18.5" }
 yukihook-api = { module = "com.highcapable.yukihookapi:api", version.ref = "yuki" }
