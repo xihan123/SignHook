@@ -161,7 +161,6 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.activity.ktx)
-    implementation(libs.kotlin.json)
     implementation(libs.landscapist.coil) {
         exclude(group = "io.coil-kt")
     }
@@ -216,22 +215,4 @@ dependencies {
     compileOnly(libs.xposed.api)
 }
 
-val service = project.extensions.getByType<JavaToolchainService>()
-val customLauncher = service.launcherFor {
-    languageVersion.set(JavaLanguageVersion.of("17"))
-}
-project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.UsesKotlinJavaToolchain>().configureEach {
-    kotlinJavaToolchain.toolchain.use(customLauncher)
-}
 
-kotlin {
-    compilerOptions {
-        languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
-        apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
-    }
-//    sourceSets.all {
-//        languageSettings.apply {
-//            languageVersion = "2.0"
-//        }
-//    }
-}
