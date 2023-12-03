@@ -16,6 +16,6 @@ class MyApp : MultiDexApplication(),Configuration.Provider {
 
     @Inject
     lateinit var workerConfiguration: Configuration
-
-    override fun getWorkManagerConfiguration(): Configuration = workerConfiguration
+    override val workManagerConfiguration: Configuration
+        get() = workerConfiguration
 }
