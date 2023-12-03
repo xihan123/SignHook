@@ -193,8 +193,8 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.work)
     implementation(libs.hilt.navigation.compose)
-    kapt(libs.hilt.compiler)
-    kapt(libs.hiltx.compiler)
+    ksp(libs.hilt.compiler)
+    ksp(libs.hiltx.compiler)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
