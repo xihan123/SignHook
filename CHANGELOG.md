@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.11](https://github.com/xihan123/SignHook/compare/v1.1.10...v1.1.11) (2023-12-03)
+
+
+### Bug Fixes
+
+* **deps:** update hilt.androidx to v1.1.0 ([8a0a0ec](https://github.com/xihan123/SignHook/commit/8a0a0ec5e5fded4a64718854de0abaf4baa34949))
+
 ## [1.1.10](https://github.com/xihan123/SignHook/compare/v1.1.9...v1.1.10) (2023-12-02)
 
 
