@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.12](https://github.com/xihan123/SignHook/compare/v1.1.11...v1.1.12) (2023-12-03)
+
+
+### Bug Fixes
+
+* workManagerConfiguration ([173bb6d](https://github.com/xihan123/SignHook/commit/173bb6d8e643de54443ff1852dd31dceaa2b3ea7))
+
+
+### Feature Improvements
+
+* 使用 ksp ([7626992](https://github.com/xihan123/SignHook/commit/762699235e914478e0c4ba8f23b6b524b3bd6f11))
+
 ## [1.1.11](https://github.com/xihan123/SignHook/compare/v1.1.10...v1.1.11) (2023-12-03)
 
 
