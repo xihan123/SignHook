@@ -64,7 +64,7 @@ runtime = { module = "androidx.compose.runtime:runtime" }
 animation = { module = "androidx.compose.animation:animation" }
 material = { module = "androidx.compose.material:material" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.7.5" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.7.6" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 material3 = { module = "androidx.compose.material3:material3" }
