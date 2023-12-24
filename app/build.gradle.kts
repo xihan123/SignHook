@@ -1,5 +1,4 @@
-import java.io.FileInputStream
-import java.util.Properties
+import java.util.*
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
@@ -15,7 +14,10 @@ plugins {
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
 val keystoreProperties = Properties()
-keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+val containsKeystore = keystorePropertiesFile.exists()
+if (containsKeystore) keystorePropertiesFile.reader().use {
+    keystoreProperties.load(it)
+}
 
 val repo = jgit.repo()
 val commitCount = (repo?.commitCount("refs/remotes/origin/master") ?: 1) + 23
@@ -37,7 +39,7 @@ android {
     )
 
     signingConfigs {
-        create("xihantest") {
+        if (containsKeystore) create("xihantest") {
             keyAlias = keystoreProperties["keyAlias"] as String
             keyPassword = keystoreProperties["keyPassword"] as String
             storeFile = file(keystoreProperties["storeFile"] as String)
@@ -60,7 +62,9 @@ android {
 
         buildConfigField("long", "BUILD_TIMESTAMP", "${System.currentTimeMillis()}L")
 
-        signingConfig = signingConfigs.getByName("xihantest")
+        if (containsKeystore) {
+            signingConfig = signingConfigs.getByName("xihantest")
+        }
 
         vectorDrawables {
             useSupportLibrary = true
