@@ -8,7 +8,6 @@ package cn.xihan.sign.ui
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -70,6 +69,7 @@ import cn.xihan.sign.component.Scaffold
 import cn.xihan.sign.component.SearchByTextAppBar
 import cn.xihan.sign.component.items
 import cn.xihan.sign.hook.HookEntry.Companion.optionModel
+import cn.xihan.sign.utli.copyToPrivateDir
 import cn.xihan.sign.utli.getApkSignature
 import cn.xihan.sign.utli.hideAppIcon
 import cn.xihan.sign.utli.jumpToPermission
@@ -92,18 +92,16 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MainViewModel>()
 
+    private val apkCacheDir by lazy { File(cacheDir, "copiedApks") }
+
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let {
-                // uri 转为 File
-                val path = it.path?.removePrefix("/document/primary:")
-                path?.let { it1 -> File("${Environment.getExternalStorageDirectory().path}/$it1") }
-                    ?.let { file ->
-                        getApkSignature(file)?.let { signature ->
-                            showSignatureDialog(signature)
-                        } ?: toast(getString(R.string.get_sign_error))
-                    } ?: toast(getString(R.string.get_file_error))
-            }
+            val fileUri = uri ?: return@registerForActivityResult
+            val tempFile = File(apkCacheDir, "${System.currentTimeMillis()}.apk")
+            fileUri.copyToPrivateDir(this, tempFile)
+            getApkSignature(tempFile)?.let { signature ->
+                showSignatureDialog(signature)
+            } ?: toast(getString(R.string.get_sign_error))
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {

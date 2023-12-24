@@ -2,8 +2,11 @@ package cn.xihan.sign.utli
 
 import android.app.Activity
 import android.content.ComponentName
+import android.content.ContentProvider
+import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.widget.Toast
@@ -114,6 +117,23 @@ fun Context.getSignature(pkgName: String): String = runCatching {
     signatures?.firstOrNull()?.toCharsString() ?: ""
 }.getOrElse {
     ""
+}
+
+fun Uri.copyToPrivateDir(context: Context, dest: File) {
+    val inputStream = context.contentResolver.openInputStream(this)
+    if (inputStream == null) {
+        context.toast("fail to copy $this")
+        return
+    }
+    if (dest.exists()) dest.delete()
+    val parentFile = dest.parentFile
+    if (!parentFile!!.exists()) parentFile.mkdirs()
+    dest.createNewFile()
+    dest.outputStream().use { outStream ->
+        inputStream.use { inStream ->
+            inStream.copyTo(outStream)
+        }
+    }
 }
 
 fun Context.getApkSignature(file: File): String? = runCatching {
