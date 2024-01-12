@@ -1,24 +1,24 @@
 [versions]
-agp = "8.2.0"
-kotlin = "1.9.21"
-ksp = "1.9.21-1.0.15"
-hilt = "2.49"
+agp = "8.2.1"
+kotlin = "1.9.22"
+ksp = "1.9.22-1.0.16"
+hilt = "2.50"
 orbit = "6.1.0"
 hilt-androidx = "1.1.0"
-activity = "1.8.1"
+activity = "1.8.2"
 kJson = "1.6.2"
-lifecycle = "2.6.2"
+lifecycle = "2.7.0"
 work-runtime = "2.9.0"
 room = "2.6.1"
 paging = "3.2.1"
 yuki = "1.2.0"
-compose-compiler = "1.5.5-dev-k1.9.21-163bb051fe5"
+compose-compiler = "1.5.8-dev-k1.9.22-42b6ec2b037"
 
 [libraries]
 multidex = { module = "androidx.multidex:multidex", version = "2.0.1" }
 core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0" }
 appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-alpha03" }
-#fast-json = { module = "com.alibaba.fastjson2:fastjson2-kotlin", version = "2.0.38" }
+#fast-json = { module = "com.alibaba.fastjson2:fastjson2-kotlin", version = "2.0.44" }
 
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
@@ -50,13 +50,13 @@ orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" 
 
 io-coil-compose = { module = "io.coil-kt:coil-compose", version = "2.5.0" }
 #https://github.com/skydoves/landscapist#coil
-landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.12" }
+landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.13" }
 #https://github.com/getActivity/XXPermissions
 xxpermissions = { module = "com.github.getActivity:XXPermissions", version = "18.5" }
 yukihook-api = { module = "com.highcapable.yukihookapi:api", version.ref = "yuki" }
 yukihook-ksp = { module = "com.highcapable.yukihookapi:ksp-xposed", version.ref = "yuki" }
 xposed-api = { module = "de.robv.android.xposed:api", version = "82" }
-compose-bom = { module = "dev.chrisbanes.compose:compose-bom", version = "2023.10.00-alpha02" }
+compose-bom = { module = "dev.chrisbanes.compose:compose-bom", version = "2023.12.00-alpha04" }
 ui = { module = "androidx.compose.ui:ui" }
 ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 foundation = { module = "androidx.compose.foundation:foundation" }
@@ -64,11 +64,11 @@ runtime = { module = "androidx.compose.runtime:runtime" }
 animation = { module = "androidx.compose.animation:animation" }
 material = { module = "androidx.compose.material:material" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.7.5" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.7.6" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 material3 = { module = "androidx.compose.material3:material3" }
-com-google-android-material  = { module = "com.google.android.material:material", version = "1.10.0" }
+com-google-android-material = { module = "com.google.android.material:material", version = "1.11.0" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }

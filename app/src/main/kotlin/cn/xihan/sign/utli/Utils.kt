@@ -27,6 +27,7 @@ import cn.xihan.sign.model.ApkSignatureDao
 import cn.xihan.sign.model.OptionModel
 import cn.xihan.sign.ui.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.log.loggerE
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
@@ -93,7 +94,7 @@ fun <T> rememberMutableStateOf(value: T): MutableState<T> = remember { mutableSt
 
 fun String.loge() {
     if (BuildConfig.DEBUG) {
-        loggerE(msg = this)
+        YLog.error(msg = this, tag = YLog.Configs.tag)
     }
 }
 
