@@ -52,7 +52,7 @@ io-coil-compose = { module = "io.coil-kt:coil-compose", version = "2.5.0" }
 #https://github.com/skydoves/landscapist#coil
 landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.13" }
 #https://github.com/getActivity/XXPermissions
-xxpermissions = { module = "com.github.getActivity:XXPermissions", version = "18.5" }
+xxpermissions = { module = "com.github.getActivity:XXPermissions", version = "18.6" }
 yukihook-api = { module = "com.highcapable.yukihookapi:api", version.ref = "yuki" }
 yukihook-ksp = { module = "com.highcapable.yukihookapi:ksp-xposed", version.ref = "yuki" }
 xposed-api = { module = "de.robv.android.xposed:api", version = "82" }
