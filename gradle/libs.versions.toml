@@ -48,7 +48,7 @@ orbit-core = { module = "org.orbit-mvi:orbit-core", version.ref = "orbit" }
 orbit-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbit" }
 orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" }
 
-io-coil-compose = { module = "io.coil-kt:coil-compose", version = "2.5.0" }
+io-coil-compose = { module = "io.coil-kt:coil-compose", version = "2.6.0" }
 #https://github.com/skydoves/landscapist#coil
 landscapist-coil = { module = "com.github.skydoves:landscapist-coil", version = "2.2.13" }
 #https://github.com/getActivity/XXPermissions
