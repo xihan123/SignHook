@@ -14,7 +14,5 @@
     <string name="get_file_error">获取文件错误</string>
     <string name="clear">清空</string>
     <string name="exit">退出</string>
-    <string name="request_permission">申请权限</string>
-    <string name="permisson_channel_text">请授予存储以及安装未知应用权限,否则可能无法正常使用~</string>
     <string name="hide_icon">隐藏图标</string>
 </resources>
