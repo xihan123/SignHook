@@ -12,7 +12,6 @@ import android.os.Environment
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +26,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.MoreVert
@@ -57,8 +57,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import cn.xihan.sign.R
@@ -69,28 +67,22 @@ import cn.xihan.sign.component.MyDropdownMenuItem
 import cn.xihan.sign.component.Scaffold
 import cn.xihan.sign.component.SearchByTextAppBar
 import cn.xihan.sign.component.items
-import cn.xihan.sign.hook.HookEntry.Companion.optionModel
+import cn.xihan.sign.utli.defaultScopeSet
 import cn.xihan.sign.utli.getApkSignature
 import cn.xihan.sign.utli.hideAppIcon
-import cn.xihan.sign.utli.jumpToPermission
 import cn.xihan.sign.utli.rememberMutableStateOf
-import cn.xihan.sign.utli.requestPermission
-import cn.xihan.sign.utli.restartApplication
 import cn.xihan.sign.utli.showAppIcon
 import cn.xihan.sign.utli.showSignatureDialog
 import cn.xihan.sign.utli.toast
-import cn.xihan.sign.utli.writeConfigFile
-import com.hjq.permissions.Permission
-import com.hjq.permissions.XXPermissions
-import dagger.hilt.android.AndroidEntryPoint
+import com.highcapable.yukihookapi.hook.factory.prefs
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import java.io.File
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModel<MainViewModel>()
 
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
@@ -114,17 +106,9 @@ class MainActivity : AppCompatActivity() {
                 ComposeContent()
             }
         }
-        // TODO: 在模拟器上会无限崩溃 暂时无法解决 如需要可以自己取消注释
-        /*
-        val getAllApkInfo = OneTimeWorkRequestBuilder<ApkInfoWorker>()
-            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-            .build()
-        WorkManager.getInstance(this).enqueue(getAllApkInfo)
-
-         */
-
     }
 
+    @OptIn(ExperimentalMaterialApi::class)
     @Composable
     fun ComposeContent() {
         val state by viewModel.collectAsState()
@@ -132,32 +116,27 @@ class MainActivity : AppCompatActivity() {
         val snackbarHostState = remember { SnackbarHostState() }
         var query by rememberMutableStateOf(value = "")
         val signatureList = state.apkSignatureFlow.collectAsLazyPagingItems()
-        val permission = rememberMutableStateOf(
-            value = XXPermissions.isGranted(
-                this, if (this.applicationInfo.targetSdkVersion > 30) arrayOf(
-                    Permission.MANAGE_EXTERNAL_STORAGE, Permission.REQUEST_INSTALL_PACKAGES
-                ) else Permission.Group.STORAGE.plus(Permission.REQUEST_INSTALL_PACKAGES)
-            )
-        )
         val gridState = rememberLazyGridState()
         val topAppBarExpanded = rememberMutableStateOf(value = false)
         val packageName =
-            rememberMutableStateOf(value = optionModel.packageNameList.joinToString(";"))
+            rememberMutableStateOf(
+                value = prefs().getStringSet("packageNameList", defaultScopeSet).joinToString(";")
+            )
         val scopePackageNameState = rememberMutableStateOf(value = false)
         val refreshState = rememberPullRefreshState(state.refreshing, onRefresh = {
             viewModel.updateSignatureList()
             viewModel.querySignature(query)
         })
-        val hideIcon = rememberMutableStateOf(value = optionModel.hideIcon)
-
+        val hideIcon =
+            rememberMutableStateOf(value = prefs().native().getBoolean("hideIcon", false))
         LaunchedEffect(hideIcon.value) {
+            prefs().native().edit().putBoolean("hideIcon", hideIcon.value).apply()
             if (hideIcon.value) {
                 hideAppIcon()
             } else {
                 showAppIcon()
             }
         }
-
 
         Scaffold(
             modifier = Modifier
@@ -228,19 +207,13 @@ class MainActivity : AppCompatActivity() {
                                             Text(stringResource(id = R.string.hide_icon))
                                             Checkbox(
                                                 checked = hideIcon.value,
-                                                onCheckedChange = {
-                                                    hideIcon.value = it
-                                                    optionModel.hideIcon = it
-                                                    writeConfigFile()
-                                                }
+                                                onCheckedChange = hideIcon::value::set
                                             )
                                         }
                                     },
                                     onClick = {
                                         topAppBarExpanded.value = true
                                         hideIcon.value = !hideIcon.value
-                                        optionModel.hideIcon = hideIcon.value
-                                        writeConfigFile()
                                     }
                                 )
 
@@ -261,103 +234,74 @@ class MainActivity : AppCompatActivity() {
             },
         ) { _, _ ->
 
-            if (permission.value) {
-                Column {
-                    SearchByTextAppBar(
-                        text = query,
-                        onTextChange = {
-                            query = it
-                            viewModel.querySignature(it)
-                        },
-                        onClickClear = {
-                            query = ""
-                            viewModel.querySignature()
-                        },
-                        onClickSearch = {
-                            viewModel.querySignature(query)
-                        },
-                    )
+            Column {
+                SearchByTextAppBar(
+                    text = query,
+                    onTextChange = {
+                        query = it
+                        viewModel.querySignature(it)
+                    },
+                    onClickClear = {
+                        query = ""
+                        viewModel.querySignature()
+                    },
+                    onClickSearch = {
+                        viewModel.querySignature(query)
+                    },
+                )
 
-                    Box(modifier = Modifier.pullRefresh(refreshState)) {
+                Box(modifier = Modifier.pullRefresh(refreshState)) {
 
-                        if (signatureList.itemCount == 0) {
-                            EmptyList(
-                                modifier = Modifier.fillMaxWidth(),
-                                text = "空空如也",
-                                onRetryClick = {
-                                    viewModel.updateSignatureList()
-                                }
-                            )
-                        } else {
-                            LazyVerticalGrid(
-                                columns = GridCells.Fixed(1),
-                                contentPadding = PaddingValues(15.dp),
-                                verticalArrangement = Arrangement.spacedBy(10.dp),
-                                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                                state = gridState,
-                                modifier = Modifier.fillMaxSize()
-                            ) {
-                                items(
-                                    items = signatureList,
-                                    key = { it.packageName },
-                                    span = { GridItemSpan(1) }
-                                ) { item ->
-                                    item?.let {
-                                        ApkInfoItem(
-                                            apkInfoItem = item,
-                                            updateForgedSignatureAction = { packageName, forgedSignature ->
-                                                viewModel.updateForgedSignature(
-                                                    packageName,
-                                                    forgedSignature
-                                                )
-                                            },
-                                            updateForgedAction = { packageName, forged ->
-                                                viewModel.updateIsForged(
-                                                    packageName,
-                                                    forged
-                                                )
-                                            }
-                                        )
-                                    }
+                    if (signatureList.itemCount == 0) {
+                        EmptyList(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = "空空如也",
+                            onRetryClick = {
+                                viewModel.updateSignatureList()
+                            }
+                        )
+                    } else {
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(1),
+                            contentPadding = PaddingValues(15.dp),
+                            verticalArrangement = Arrangement.spacedBy(10.dp),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp),
+                            state = gridState,
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            items(
+                                items = signatureList,
+                                key = { it.packageName },
+                                span = { GridItemSpan(1) }
+                            ) { item ->
+                                item?.let {
+                                    ApkInfoItem(
+                                        apkInfoItem = item,
+                                        updateForgedSignatureAction = { packageName, forgedSignature ->
+                                            viewModel.updateForgedSignature(
+                                                packageName,
+                                                forgedSignature
+                                            )
+                                        },
+                                        updateForgedAction = { packageName, forged ->
+                                            viewModel.updateIsForged(
+                                                packageName,
+                                                forged
+                                            )
+                                        }
+                                    )
                                 }
                             }
-
                         }
 
-                        PullRefreshIndicator(
-                            state.refreshing, refreshState, Modifier.align(Alignment.TopCenter)
-                        )
                     }
 
-
-                }
-            } else {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    Text(
-                        text = stringResource(id = R.string.permisson_channel_text),
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold
+                    PullRefreshIndicator(
+                        state.refreshing, refreshState, Modifier.align(Alignment.TopCenter)
                     )
-
-                    Button(onClick = {
-                        requestPermission(onGranted = {
-                            permission.value = true
-                            restartApplication()
-                        }, onDenied = {
-                            permission.value = false
-                            jumpToPermission()
-                        })
-                    }) {
-                        Text(stringResource(id = R.string.request_permission))
-                    }
                 }
+
             }
-
-
         }
         if (scopePackageNameState.value) {
             AlertDialog(
@@ -380,9 +324,11 @@ class MainActivity : AppCompatActivity() {
                 },
                 confirmButton = {
                     Button(onClick = {
-                        optionModel.packageNameList = packageName.value.split(";")
+                        prefs().edit().putStringSet(
+                            "packageNameList",
+                            packageName.value.split(";").toSet()
+                        ).apply()
                         scopePackageNameState.value = false
-                        writeConfigFile()
                     }) {
                         Text(stringResource(id = android.R.string.ok))
                     }
@@ -399,7 +345,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
 
 @Composable
 fun STheme(

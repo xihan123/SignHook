@@ -9,12 +9,9 @@ import cn.xihan.sign.model.ApkSignature
 import cn.xihan.sign.model.ApkSignatureDao
 import cn.xihan.sign.utli.getSignature
 import cn.xihan.sign.utli.loge
-import dagger.hilt.android.migration.CustomInject
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import javax.inject.Inject
 
 /**
  * @项目名 : 签名助手
@@ -22,10 +19,9 @@ import javax.inject.Inject
  * @创建时间 : 2023/6/19 19:52
  * @介绍 :
  */
-@CustomInject
 @WorkerThread
-class LocalRepository @Inject constructor(
-    @ApplicationContext private val context: Context,
+class LocalRepository(
+    private val context: Context,
     private val apkSignatureDao: ApkSignatureDao
 ) {
 

@@ -1,22 +1,20 @@
 package cn.xihan.sign.ui
 
+import android.app.Application
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import cn.xihan.sign.base.BaseViewModel
 import cn.xihan.sign.base.IUiIntent
 import cn.xihan.sign.base.IUiState
-import cn.xihan.sign.hook.HookEntry.Companion.optionModel
 import cn.xihan.sign.model.ApkSignature
 import cn.xihan.sign.repository.LocalRepository
-import cn.xihan.sign.utli.writeConfigFile
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.highcapable.yukihookapi.hook.factory.prefs
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.syntax.simple.repeatOnSubscription
-import javax.inject.Inject
 
 /**
  * @项目名 : 签名助手
@@ -24,8 +22,8 @@ import javax.inject.Inject
  * @创建时间 : 2023/6/19 20:40
  * @介绍 :
  */
-@HiltViewModel
-class MainViewModel @Inject constructor(
+class MainViewModel(
+    private val context: Application,
     private val localRepository: LocalRepository,
 ) : BaseViewModel<MainState, IUiIntent>() {
 
@@ -77,9 +75,22 @@ class MainViewModel @Inject constructor(
         querySignature()
         intent {
             repeatOnSubscription {
-                localRepository.queryAllForgedSignature().collect {
-                    optionModel.apkSignatureList = it
-                    writeConfigFile()
+                localRepository.queryAllForgedSignature().collect { apkSignatures ->
+                    val forgedPackages = apkSignatures
+                        .asSequence()
+                        .filter { model -> model.isForged && model.forgedSignature.isNotBlank() }
+                        .map { model -> model.packageName to model.forgedSignature }
+                        .toList()
+
+                    if (forgedPackages.isNotEmpty()) {
+                        context.prefs().edit {
+                            forgedPackages.forEach { (packageName, forgedSignature) ->
+                                putString(packageName, forgedSignature)
+                            }
+                            putStringSet("packageNames", forgedPackages.map { it.first }.toSet())
+                            apply()
+                        }
+                    }
                 }
             }
         }

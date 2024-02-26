@@ -38,7 +38,6 @@ data class ApkSignature(
     var isForged: Boolean = false
 ) : Parcelable
 
-
 /**
  * 选择模型
  * @author MissYang
@@ -51,7 +50,6 @@ data class ApkSignature(
 @Serializable
 @Parcelize
 data class OptionModel(
-    var hideIcon: Boolean = false,
     var packageNameList: List<String> = listOf(
         "com.tencent.mm",
         "com.tencent.mobileqq",

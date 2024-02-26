@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlinKsp) apply false
     alias(libs.plugins.kotlinParcelize) apply false
     alias(libs.plugins.kotlinSerialization) apply false
-    alias(libs.plugins.kotlinKapt) apply false
     alias(libs.plugins.hiltAndroid) apply false
     alias(libs.plugins.jgit) apply false
 }
