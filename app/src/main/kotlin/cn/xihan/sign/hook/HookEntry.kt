@@ -3,8 +3,8 @@ package cn.xihan.sign.hook
 import android.content.pm.PackageInfo
 import android.content.pm.Signature
 import cn.xihan.sign.BuildConfig
+import cn.xihan.sign.utli.defaultScopeSet
 import cn.xihan.sign.utli.loge
-import cn.xihan.sign.utli.readOptionModel
 import com.highcapable.yukihookapi.YukiHookAPI
 import com.highcapable.yukihookapi.annotation.xposed.InjectYukiHookWithXposed
 import com.highcapable.yukihookapi.hook.factory.method
@@ -33,23 +33,35 @@ class HookEntry : IYukiHookXposedInit {
 
     override fun onHook() = YukiHookAPI.encase {
 
-        if (packageName in PACKAGE_NAME_LIST) {
+        val packageNameList by lazy {
+            prefs.getStringSet(
+                "packageNameList", defaultScopeSet
+            )
+        }
+
+        val packageNames by lazy {
+            prefs.getStringSet("packageNames", emptySet())
+        }
+
+        if (packageName in packageNameList) {
             loadApp(packageName) {
                 ApplicationPackageManagerClass.method {
                     name = "getPackageInfo"
                     param(StringClass, IntType)
                     returnType = PackageInfoClass
                 }.hook().after {
-                    val packageInfo = result as PackageInfo
-                    if (apkSignatureList.isEmpty()) {
+                    val packageInfo = result as? PackageInfo ?: return@after
+
+                    if (packageNames.isEmpty()) {
                         "apkSignatureList is empty".loge()
                         return@after
                     }
                     runCatching {
-                        apkSignatureList.forEach { apkSignature ->
-                            if (packageInfo.packageName == apkSignature.packageName) {
+                        packageNames.forEach { packageName ->
+                            val forgedSignature = prefs.getString(packageName, "")
+                            if (packageInfo.packageName == packageName && forgedSignature.isNotEmpty()) {
                                 packageInfo.signatures =
-                                    arrayOf(Signature(apkSignature.forgedSignature))
+                                    arrayOf(Signature(forgedSignature))
                             }
                         }
                     }
@@ -58,23 +70,5 @@ class HookEntry : IYukiHookXposedInit {
                 }
             }
         }
-
     }
-
-    companion object {
-
-        val PACKAGE_NAME_LIST by lazy {
-            optionModel.packageNameList
-        }
-
-        val apkSignatureList by lazy {
-            optionModel.apkSignatureList
-        }
-
-        val optionModel by lazy {
-            readOptionModel()
-        }
-
-    }
-
 }
