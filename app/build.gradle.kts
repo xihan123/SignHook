@@ -8,8 +8,8 @@ plugins {
     alias(libs.plugins.kotlinKsp)
     alias(libs.plugins.kotlinParcelize)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.kotlinKapt)
-    alias(libs.plugins.hiltAndroid)
+//    alias(libs.plugins.kotlinKapt)
+//    alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.jgit)
 }
 
@@ -59,6 +59,12 @@ android {
         resourceConfigurations.addAll(listOf("zh"))
 
         buildConfigField("long", "BUILD_TIMESTAMP", "${System.currentTimeMillis()}L")
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+            arg("room.incremental", "true")
+            arg("room.expandProjection", "true")
+        }
 
         signingConfig = signingConfigs.getByName("xihantest")
 
@@ -153,6 +159,10 @@ android {
         dex.useLegacyPackaging = true
     }
 
+    applicationVariants.all {
+        addJavaSourceFoldersToModel(file("build/generated/ksp/$name/kotlin"))
+    }
+
     lint.abortOnError = false
 }
 
@@ -164,17 +174,14 @@ dependencies {
     implementation(libs.landscapist.coil) {
         exclude(group = "io.coil-kt")
     }
-    implementation(libs.xxpermissions) {
-        exclude(group = "com.android.support")
-    }
     implementation(libs.io.coil.compose)
 
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.common.java8)
-    implementation(libs.work.runtime)
-    implementation(libs.work.runtime.ktx)
+//    implementation(libs.work.runtime)
+//    implementation(libs.work.runtime.ktx)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
@@ -183,18 +190,23 @@ dependencies {
     implementation(libs.paging.runtime.ktx)
     implementation(libs.paging.compose)
     implementation(libs.startup)
-    implementation(libs.kotlinx.serialization.core)
+//    implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.orbit.core)
     implementation(libs.orbit.compose)
     implementation(libs.orbit.viewmodel)
 
-    implementation(libs.hilt.android)
-    implementation(libs.hilt.work)
-    implementation(libs.hilt.navigation.compose)
-    ksp(libs.hilt.compiler)
-    ksp(libs.hiltx.compiler)
+//    implementation(libs.hilt.android)
+//    implementation(libs.hilt.work)
+//    implementation(libs.hilt.navigation.compose)
+//    ksp(libs.hilt.compiler)
+//    ksp(libs.hiltx.compiler)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.android)
+    implementation(libs.koin.core.coroutines)
+//    implementation(libs.koin.androidx.workmanager)
+    implementation(libs.koin.androidx.compose.navigation)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
