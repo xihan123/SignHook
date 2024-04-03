@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.0.1](https://github.com/xihan123/SignHook/compare/v2.0.0...v2.0.1) (2024-04-03)
+
+
+### Bug Fixes
+
+* 管理器不显示模块[[#135](https://github.com/xihan123/SignHook/issues/135)]([#135](https://github.com/xihan123/SignHook/issues/135)) ([6fac40a](https://github.com/xihan123/SignHook/commit/6fac40af854e173b4dd9ced1b84e9ce381998532))
+
+
+### Miscellaneous
+
+* 更新依赖库 ([24d172c](https://github.com/xihan123/SignHook/commit/24d172c87ad007aee6fd1aaef40997bb792ae2fc))
+
 ## [2.0.0](https://github.com/xihan123/SignHook/compare/v1.1.13...v2.0.0) (2024-02-26)
 
 
