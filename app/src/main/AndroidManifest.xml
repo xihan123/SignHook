@@ -40,7 +40,7 @@
             android:value="对简单签名校验通杀" />
         <meta-data
             android:name="xposedminversion"
-            android:value="89+" />
+            android:value="90" />
         <meta-data
             android:name="xposedsharedprefs"
             android:value="true" />
