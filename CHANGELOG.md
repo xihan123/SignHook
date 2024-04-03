@@ -1,5 +1,32 @@
 # Changelog
 
+## [2.0.0](https://github.com/xihan123/SignHook/compare/v1.1.13...v2.0.0) (2024-02-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* 移除无用的依赖
+
+### Features
+
+* 移除无用的依赖 ([f49c3e1](https://github.com/xihan123/SignHook/commit/f49c3e1c45c947e54df05efe0ba203db53598d8b))
+* 迁移至Koin注入框架 ([036209e](https://github.com/xihan123/SignHook/commit/036209e4070405d3df20fb13e1566f2d6a1265e8))
+
+
+### Bug Fixes
+
+* 作用域包名无存储权限导致的读取签名值失败[[#124](https://github.com/xihan123/SignHook/issues/124)]([#124](https://github.com/xihan123/SignHook/issues/124)) ([cdab221](https://github.com/xihan123/SignHook/commit/cdab2219c7bae4f2f6de916e11c0c2cdea5bf58f))
+
+
+### Docs
+
+* 更新 README.md ([4f5435f](https://github.com/xihan123/SignHook/commit/4f5435f79e6474cea3f2e8acf9705a376a74f383))
+
+
+### Miscellaneous
+
+* 更新依赖库 ([bffd579](https://github.com/xihan123/SignHook/commit/bffd5790065bc6e92d729dcdb62b6878ea3729e3))
+
 ## [1.1.13](https://github.com/xihan123/SignHook/compare/v1.1.12...v1.1.13) (2024-01-12)
 
 
