@@ -2,7 +2,7 @@
 agp = "8.3.1"
 kotlin = "1.9.23"
 ksp = "1.9.23-1.0.19"
-orbit = "7.0.1"
+orbit = "7.1.0"
 hilt-androidx = "1.2.0"
 activity = "1.8.2"
 kJson = "1.6.3"
