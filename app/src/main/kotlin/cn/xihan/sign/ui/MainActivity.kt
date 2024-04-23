@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -68,6 +69,7 @@ import cn.xihan.sign.component.Scaffold
 import cn.xihan.sign.component.SearchByTextAppBar
 import cn.xihan.sign.component.items
 import cn.xihan.sign.utli.defaultScopeSet
+import cn.xihan.sign.utli.getApkRawSignatures
 import cn.xihan.sign.utli.getApkSignature
 import cn.xihan.sign.utli.hideAppIcon
 import cn.xihan.sign.utli.rememberMutableStateOf
@@ -87,14 +89,14 @@ class MainActivity : AppCompatActivity() {
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
+                it.path?.toString()?.let { it1 -> Log.d("it path", it1) }
                 // uri 转为 File
                 val path = it.path?.removePrefix("/document/primary:")
-                path?.let { it1 -> File("${Environment.getExternalStorageDirectory().path}/$it1") }
-                    ?.let { file ->
-                        getApkSignature(file)?.let { signature ->
-                            showSignatureDialog(signature)
-                        } ?: toast(getString(R.string.get_sign_error))
-                    } ?: toast(getString(R.string.get_file_error))
+                path?.let { it1 ->
+                    File("${baseContext.externalCacheDir?.path}/${it1.substringAfterLast("/")}")
+                }?.let { file ->
+                    showSignatureDialog(getApkRawSignatures(file.absolutePath))
+                } ?: toast(getString(R.string.get_file_error))
             }
         }
 

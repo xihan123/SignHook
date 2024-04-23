@@ -1,11 +1,13 @@
 package cn.xihan.sign.utli
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.pm.Signature
 import android.os.Build
-import android.view.ViewGroup
+import android.util.DisplayMetrics
 import android.widget.Toast
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -26,8 +28,22 @@ import cn.xihan.sign.model.ApkSignatureDao
 import cn.xihan.sign.ui.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.log.YLog
-import kotlinx.serialization.json.Json
 import java.io.File
+import java.lang.Boolean
+import java.lang.reflect.Constructor
+import kotlin.Any
+import kotlin.Array
+import kotlin.CharSequence
+import kotlin.Int
+import kotlin.String
+import kotlin.also
+import kotlin.apply
+import kotlin.arrayOfNulls
+import kotlin.getOrElse
+import kotlin.let
+import kotlin.runCatching
+import kotlin.stackTraceToString
+import kotlin.synchronized
 import kotlin.system.exitProcess
 
 /**
@@ -126,6 +142,54 @@ fun Context.getApkSignature(file: File): String? = runCatching {
     }
     signatures?.first()?.toCharsString()
 }.getOrElse { "" }
+
+@SuppressLint("PrivateApi", "DiscouragedPrivateApi")
+fun getApkRawSignatures(apkPath: String): String = runCatching {
+    val pathPackageParser = "android.content.pm.PackageParser"
+    val parsePackage = "parsePackage"
+    val collectCertificates = "collectCertificates"
+    val fieldMSignatures = "mSignatures"
+    val fieldMSigningDetails = "mSigningDetails"
+    val fieldSignatures = "signatures"
+
+    val pkgParserCls = Class.forName(pathPackageParser)
+    val typeArgs: Array<Class<*>?> = arrayOfNulls(1)
+    typeArgs[0] = String::class.java
+    val metrics = DisplayMetrics()
+    metrics.setToDefaults()
+    val pkgParser: Any
+    val pkgParserCt: Constructor<*> = pkgParserCls.getConstructor()
+    pkgParser = pkgParserCt.newInstance()
+    val pkgParserParsePackageMtd =
+        pkgParserCls.getDeclaredMethod(parsePackage, File::class.java, Int::class.javaPrimitiveType)
+    val pkgParserPkg =
+        pkgParserParsePackageMtd.invoke(pkgParser, File(apkPath), PackageManager.GET_SIGNATURES)
+    val signatures = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        val pkgParserCollectCertificatesMtd = pkgParserCls.getDeclaredMethod(
+            collectCertificates, pkgParserPkg.javaClass, Boolean.TYPE
+        )
+        pkgParserCollectCertificatesMtd.invoke(
+            pkgParser, pkgParserPkg, Build.VERSION.SDK_INT > Build.VERSION_CODES.P
+        )
+        val mSigningDetailsField = pkgParserPkg.javaClass.getDeclaredField(fieldMSigningDetails)
+        mSigningDetailsField.isAccessible = true
+        val mSigningDetails = mSigningDetailsField[pkgParserPkg]
+        val packageInfoField = mSigningDetails.javaClass.getDeclaredField(fieldSignatures)
+        packageInfoField.isAccessible = true
+        packageInfoField[mSigningDetails]
+    } else {
+        val pkgParserCCerMtd = pkgParserCls.getDeclaredMethod(
+            collectCertificates, pkgParserPkg.javaClass, Integer.TYPE
+        )
+        pkgParserCCerMtd.invoke(pkgParser, pkgParserPkg, PackageManager.GET_SIGNATURES)
+        val packageInfoField = pkgParserPkg.javaClass.getDeclaredField(fieldMSignatures)
+        packageInfoField[pkgParserPkg]
+    }
+    signatures?.let { apkRawSignatures ->
+        if (apkRawSignatures is Array<*> && apkRawSignatures.isArrayOf<Signature>())
+            (apkRawSignatures.first() as Signature).toCharsString() else "ApkRawSignaturesNotArray"
+    } ?: "ApkRawSignaturesNUll"
+}.getOrElse { throwable -> throwable.stackTraceToString() }
 
 /**
  * 字符串复制到剪切板
@@ -227,7 +291,5 @@ abstract class AppDatabase : RoomDatabase() {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .fallbackToDestructiveMigration().createFromAsset("database/sign.db").build()
         }
-
     }
-
 }
