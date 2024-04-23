@@ -1,13 +1,18 @@
+![SignHook](https://socialify.git.ci/xihan123/SignHook/image?description=1&forks=1&issues=1&language=1&name=1&owner=1&pulls=1&stargazers=1&theme=Auto)
+
+![above](https://img.shields.io/badge/Android-8.0%20or%20above-brightgreen.svg)
+[![Android CI](https://github.com/xihan123/SignHook/actions/workflows/build.yml/badge.svg)](https://github.com/xihan123/SignHook/actions/workflows/build.yml)
+[![Latest Release](https://img.shields.io/github/release/xihan123/SignHook.svg)](https://github.com/xihan123/SignHook/releases)
+![downloads](https://img.shields.io/github/downloads/xihan123/SignHook/total)
+
+---
+
 ## SignHook(签名助手) Xp模块
 
 使用 [YukiHookAPI](https://github.com/fankes/YukiHookAPI)
 
 * ~~1.1.13及之前使用前注意给作用域包名的应用存储权限~~
 * 1.1.13之后版本都不支持内置模块望周知!!!
-
-## fix: Obtain original signature
-The original signature of the installation package can be obtained, which has been verified.
-The installation package must be placed in the **【/storage/mutated/0/Android/data/cn.xihan.sign/cache】** directory.
 
 ## 使用说明
 
@@ -42,5 +47,14 @@ The installation package must be placed in the **【/storage/mutated/0/Android/d
 * 对于使用该Xposed模块所产生的任何问题，作者不提供任何形式的技术支持和解决方案。
 
 请在使用该Xposed模块之前认真阅读以上免责声明并自行权衡风险和利益，如有异议请勿使用。如果您使用了该Xposed模块，即代表您已经完全接受本免责声明。
+
+---
+
+## 截图
+
+![image0](Screenshots/0.png)
+![image1](Screenshots/1.png)
+![image2](Screenshots/2.png)
+![image3](Screenshots/3.png)
 
 ---
