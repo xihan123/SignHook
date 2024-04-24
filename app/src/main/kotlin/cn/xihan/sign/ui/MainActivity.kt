@@ -8,6 +8,7 @@ package cn.xihan.sign.ui
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -67,7 +68,7 @@ import cn.xihan.sign.component.Scaffold
 import cn.xihan.sign.component.SearchByTextAppBar
 import cn.xihan.sign.component.items
 import cn.xihan.sign.utli.defaultScopeSet
-import cn.xihan.sign.utli.getApkRawSignatures
+import cn.xihan.sign.utli.getApkSignature
 import cn.xihan.sign.utli.hideAppIcon
 import cn.xihan.sign.utli.rememberMutableStateOf
 import cn.xihan.sign.utli.showAppIcon
@@ -77,6 +78,7 @@ import com.highcapable.yukihookapi.hook.factory.prefs
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.orbitmvi.orbit.compose.collectAsState
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -85,13 +87,14 @@ class MainActivity : AppCompatActivity() {
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
-                runCatching {
-                    contentResolver.openInputStream(uri)?.use { inputStream ->
-                        showSignatureDialog(getApkRawSignatures(inputStream))
+                // uri 转为 File
+                val path = it.path?.removePrefix("/document/primary:")
+                path?.let { it1 -> File("${Environment.getExternalStorageDirectory().path}/$it1") }
+                    ?.let { file ->
+                        getApkSignature(file)?.let { signature ->
+                            showSignatureDialog(signature)
+                        } ?: toast(getString(R.string.get_sign_error))
                     } ?: toast(getString(R.string.get_file_error))
-                }.onFailure {
-                    toast("${getString(R.string.get_file_error)}: ${it.message}")
-                }
             }
         }
 
