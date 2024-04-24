@@ -67,7 +67,7 @@ import cn.xihan.sign.component.Scaffold
 import cn.xihan.sign.component.SearchByTextAppBar
 import cn.xihan.sign.component.items
 import cn.xihan.sign.utli.defaultScopeSet
-import cn.xihan.sign.utli.getApkSignature
+import cn.xihan.sign.utli.getApkRawSignatures
 import cn.xihan.sign.utli.hideAppIcon
 import cn.xihan.sign.utli.rememberMutableStateOf
 import cn.xihan.sign.utli.showAppIcon
@@ -87,9 +87,7 @@ class MainActivity : AppCompatActivity() {
             uri?.let {
                 runCatching {
                     contentResolver.openInputStream(uri)?.use { inputStream ->
-                        getApkSignature(inputStream)?.let { signature ->
-                            showSignatureDialog(signature)
-                        } ?: toast(getString(R.string.get_sign_error))
+                        showSignatureDialog(getApkRawSignatures(inputStream))
                     } ?: toast(getString(R.string.get_file_error))
                 }.onFailure {
                     toast("${getString(R.string.get_file_error)}: ${it.message}")
