@@ -5,7 +5,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -26,8 +25,8 @@ import cn.xihan.sign.model.ApkSignatureDao
 import cn.xihan.sign.ui.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.log.YLog
-import kotlinx.serialization.json.Json
 import java.io.File
+import java.io.InputStream
 import kotlin.system.exitProcess
 
 /**
@@ -110,21 +109,28 @@ fun Context.getSignature(pkgName: String): String = runCatching {
     ""
 }
 
-fun Context.getApkSignature(file: File): String? = runCatching {
+fun Context.getApkSignature(inputStream: InputStream): String? = runCatching {
+    val tempFile = File.createTempFile("temp_", ".apk", cacheDir)
+    tempFile.outputStream().use { fileOut ->
+        inputStream.copyTo(fileOut)
+    }
     val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
         packageManager.getPackageArchiveInfo(
-            file.absolutePath,
+            tempFile.absolutePath,
             PackageManager.GET_SIGNING_CERTIFICATES
         )
     } else {
-        packageManager.getPackageArchiveInfo(file.absolutePath, PackageManager.GET_SIGNATURES)
+        packageManager.getPackageArchiveInfo(tempFile.absolutePath, PackageManager.GET_SIGNATURES)
     }
     val signatures = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
         packageInfo?.signingInfo?.apkContentsSigners
     } else {
         packageInfo?.signatures
     }
+    tempFile.delete()
     signatures?.first()?.toCharsString()
+}.onFailure {
+    "${getString(R.string.get_file_error)}: ${it.message}".loge()
 }.getOrElse { "" }
 
 /**
