@@ -29,21 +29,9 @@ import cn.xihan.sign.ui.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.log.YLog
 import java.io.File
-import java.lang.Boolean
+import java.io.InputStream
 import java.lang.reflect.Constructor
-import kotlin.Any
-import kotlin.Array
-import kotlin.CharSequence
-import kotlin.Int
-import kotlin.String
-import kotlin.also
-import kotlin.apply
-import kotlin.arrayOfNulls
-import kotlin.getOrElse
-import kotlin.let
-import kotlin.runCatching
-import kotlin.stackTraceToString
-import kotlin.synchronized
+import java.lang.Boolean
 import kotlin.system.exitProcess
 
 /**
@@ -126,25 +114,36 @@ fun Context.getSignature(pkgName: String): String = runCatching {
     ""
 }
 
-fun Context.getApkSignature(file: File): String? = runCatching {
+fun Context.getApkSignature(inputStream: InputStream): String? = runCatching {
+    val tempFile = File.createTempFile("temp_", ".apk", cacheDir)
+    tempFile.outputStream().use { fileOut ->
+        inputStream.copyTo(fileOut)
+    }
     val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
         packageManager.getPackageArchiveInfo(
-            file.absolutePath,
+            tempFile.absolutePath,
             PackageManager.GET_SIGNING_CERTIFICATES
         )
     } else {
-        packageManager.getPackageArchiveInfo(file.absolutePath, PackageManager.GET_SIGNATURES)
+        packageManager.getPackageArchiveInfo(tempFile.absolutePath, PackageManager.GET_SIGNATURES)
     }
     val signatures = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
         packageInfo?.signingInfo?.apkContentsSigners
     } else {
         packageInfo?.signatures
     }
+    tempFile.delete()
     signatures?.first()?.toCharsString()
+}.onFailure {
+    "${getString(R.string.get_file_error)}: ${it.message}".loge()
 }.getOrElse { "" }
 
 @SuppressLint("PrivateApi", "DiscouragedPrivateApi")
-fun getApkRawSignatures(apkPath: String): String = runCatching {
+fun Context.getApkRawSignatures(inputStream: InputStream): String = runCatching {
+    val tempFile = File.createTempFile("temp_", ".apk", cacheDir)
+    tempFile.outputStream().use { fileOut ->
+        inputStream.copyTo(fileOut)
+    }
     val pathPackageParser = "android.content.pm.PackageParser"
     val parsePackage = "parsePackage"
     val collectCertificates = "collectCertificates"
@@ -163,7 +162,11 @@ fun getApkRawSignatures(apkPath: String): String = runCatching {
     val pkgParserParsePackageMtd =
         pkgParserCls.getDeclaredMethod(parsePackage, File::class.java, Int::class.javaPrimitiveType)
     val pkgParserPkg =
-        pkgParserParsePackageMtd.invoke(pkgParser, File(apkPath), PackageManager.GET_SIGNATURES)
+        pkgParserParsePackageMtd.invoke(
+            pkgParser,
+            File(tempFile.absolutePath),
+            PackageManager.GET_SIGNATURES
+        )
     val signatures = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
         val pkgParserCollectCertificatesMtd = pkgParserCls.getDeclaredMethod(
             collectCertificates, pkgParserPkg.javaClass, Boolean.TYPE
@@ -185,10 +188,13 @@ fun getApkRawSignatures(apkPath: String): String = runCatching {
         val packageInfoField = pkgParserPkg.javaClass.getDeclaredField(fieldMSignatures)
         packageInfoField[pkgParserPkg]
     }
+    tempFile.delete()
     signatures?.let { apkRawSignatures ->
         if (apkRawSignatures is Array<*> && apkRawSignatures.isArrayOf<Signature>())
             (apkRawSignatures.first() as Signature).toCharsString() else "ApkRawSignaturesNotArray"
     } ?: "ApkRawSignaturesNUll"
+}.onFailure {
+    "${getString(R.string.get_file_error)}: ${it.message}".loge()
 }.getOrElse { throwable -> throwable.stackTraceToString() }
 
 /**
@@ -291,5 +297,7 @@ abstract class AppDatabase : RoomDatabase() {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .fallbackToDestructiveMigration().createFromAsset("database/sign.db").build()
         }
+
     }
+
 }
