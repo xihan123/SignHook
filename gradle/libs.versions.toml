@@ -66,7 +66,7 @@ navigation-compose = { module = "androidx.navigation:navigation-compose", versio
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 material3 = { module = "androidx.compose.material3:material3" }
-com-google-android-material = { module = "com.google.android.material:material", version = "1.11.0" }
+com-google-android-material = { module = "com.google.android.material:material", version = "1.12.0" }
 
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android" }
