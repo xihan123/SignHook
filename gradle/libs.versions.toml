@@ -1,6 +1,6 @@
 [versions]
 agp = "8.3.2"
-kotlin = "1.9.23"
+kotlin = "2.0.0"
 ksp = "1.9.23-1.0.20"
 orbit = "7.1.0"
 hilt-androidx = "1.2.0"
