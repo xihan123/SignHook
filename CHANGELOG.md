@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.0.2](https://github.com/xihan123/SignHook/compare/v2.0.1...v2.0.2) (2024-04-24)
+
+
+### Bug Fixes
+
+* [[#141](https://github.com/xihan123/SignHook/issues/141)]([#141](https://github.com/xihan123/SignHook/issues/141))签名获取方式改为复制一份至临时文件,读取后删除 ([232ea9a](https://github.com/xihan123/SignHook/commit/232ea9a80562c06843edbef1348ff4045f85ecdb))
+
+
+### Miscellaneous
+
+* 更新依赖库 ([e2e832b](https://github.com/xihan123/SignHook/commit/e2e832be9b582f9f233fbf0330c6607109e5c022))
+
 ## [2.0.1](https://github.com/xihan123/SignHook/compare/v2.0.0...v2.0.1) (2024-04-03)
 
 
