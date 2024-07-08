@@ -8,8 +8,7 @@ plugins {
     alias(libs.plugins.kotlinKsp)
     alias(libs.plugins.kotlinParcelize)
     alias(libs.plugins.kotlinSerialization)
-//    alias(libs.plugins.kotlinKapt)
-//    alias(libs.plugins.hiltAndroid)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jgit)
 }
 
@@ -144,8 +143,6 @@ android {
         buildConfig = true
     }
 
-    composeOptions.kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-
     packagingOptions.apply {
         resources.excludes += mutableSetOf(
             "META-INF/*******",
@@ -167,63 +164,47 @@ android {
 }
 
 dependencies {
-    implementation(libs.multidex)
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
     implementation(libs.activity.ktx)
+    implementation(libs.android.material)
+    implementation(libs.appcompat)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.coil) {
+        exclude(group = "io.coil-kt")
+    }
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.material)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.navigation)
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.ui)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.core.ktx)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose.navigation)
+    implementation(libs.koin.core.coroutines)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.landscapist.coil) {
         exclude(group = "io.coil-kt")
     }
-    implementation(libs.io.coil.compose)
-
+    implementation(libs.lifecycle.common.java8)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.viewmodel.ktx)
-    implementation(libs.lifecycle.common.java8)
-//    implementation(libs.work.runtime)
-//    implementation(libs.work.runtime.ktx)
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    ksp(libs.room.compiler)
-    implementation(libs.room.paging)
+    implementation(libs.multidex)
+    implementation(libs.orbit.compose)
+    implementation(libs.orbit.core)
+    implementation(libs.orbit.viewmodel)
+    implementation(libs.paging.compose)
     implementation(libs.paging.runtime)
     implementation(libs.paging.runtime.ktx)
-    implementation(libs.paging.compose)
+    implementation(libs.room.ktx)
+    implementation(libs.room.paging)
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
     implementation(libs.startup)
-//    implementation(libs.kotlinx.serialization.core)
-    implementation(libs.kotlinx.serialization.json)
-
-    implementation(libs.orbit.core)
-    implementation(libs.orbit.compose)
-    implementation(libs.orbit.viewmodel)
-
-//    implementation(libs.hilt.android)
-//    implementation(libs.hilt.work)
-//    implementation(libs.hilt.navigation.compose)
-//    ksp(libs.hilt.compiler)
-//    ksp(libs.hiltx.compiler)
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.android)
-    implementation(libs.koin.core.coroutines)
-//    implementation(libs.koin.androidx.workmanager)
-    implementation(libs.koin.androidx.compose.navigation)
-
-    implementation(platform(libs.compose.bom))
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.ui.tooling)
-    implementation(libs.foundation)
-    implementation(libs.runtime)
-    implementation(libs.animation)
-    implementation(libs.material)
-    implementation(libs.material3)
-    implementation(libs.navigation.compose)
-    implementation(libs.activity.compose)
-    implementation(libs.com.google.android.material)
-
     implementation(libs.yukihook.api)
     ksp(libs.yukihook.ksp)
-
     compileOnly(libs.xposed.api)
 }
 
