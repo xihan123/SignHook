@@ -58,7 +58,7 @@ room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 runtime = { module = "androidx.compose.runtime:runtime" }
-startup = { module = "androidx.startup:startup-runtime", version = "1.1.1" }
+startup = { module = "androidx.startup:startup-runtime", version = "1.2.0" }
 work-runtime = { module = "androidx.work:work-runtime", version.ref = "work-runtime" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work-runtime" }
 xposed-api = { module = "de.robv.android.xposed:api", version = "82" }
