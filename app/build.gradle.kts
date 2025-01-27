@@ -18,10 +18,10 @@ keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 val repo = jgit.repo()
 val commitCount = (repo?.commitCount("refs/remotes/origin/master") ?: 200) + 25
-val latestTag = repo?.latestTag?.removePrefix("v") ?: "2.x.x-SNAPSHOT"
+val latestTag = repo?.latestTag?.removePrefix("v") ?: "3.x.x-SNAPSHOT"
 
-val verCode by extra(200)
-val verName by extra("2.0.4")
+val verCode by extra(commitCount)
+val verName by extra(latestTag)
 println("verCode: $verCode, verName: $verName")
 val androidTargetSdkVersion by extra(35)
 val androidMinSdkVersion by extra(26)
