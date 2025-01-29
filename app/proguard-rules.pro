@@ -30,7 +30,8 @@
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
-
+-keep class android.app.AndroidAppHelper{*;}
+-keep class android.* { *; }
 
 # Remove Kotlin Instrisics (should not impact the app)
 # https://proandroiddev.com/is-your-kotlin-code-really-obfuscated-a36abf033dde
@@ -78,9 +79,12 @@ public *** getLocalOverscrollConfiguration(...);
 
 #--------------------------------Xposed指令区---------------------------------
 # 保留 Xposed 框架相关类和接口
-# Xposed 框架保留
 -keep class de.robv.android.xposed.** { *; }
 -keep interface de.robv.android.xposed.** { *; }
+-keepnames class de.robv.android.xposed.**
+-keep class de.robv.android.xposed.IXposedHookLoadPackage
+-keepnames class de.robv.android.xposed.IXposedHookLoadPackage
+
 
 # 模块入口类和方法
 -keep class cn.xihan.signhook.HookEntry { *; }
