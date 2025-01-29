@@ -1,11 +1,11 @@
 package cn.xihan.signhook.util
 
 import android.content.Context
+import cn.xihan.signhook.BuildConfig
 import cn.xihan.signhook.ui.MainViewModel
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
-import io.ktor.client.plugins.HttpResponseValidator
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.compression.ContentEncoding
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -64,13 +64,15 @@ private fun provideHttpClient(cookiesStorage: CustomCookiesStorage): HttpClient 
             socketTimeoutMillis = 5000
         }
 
-        install(Logging) {
-            logger = object : Logger {
-                override fun log(message: String) {
-                    Log.d(message)
+        if (BuildConfig.DEBUG) {
+            install(Logging) {
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        Log.d(message)
+                    }
                 }
+                level = LogLevel.ALL
             }
-            level = LogLevel.ALL
         }
     }
 
