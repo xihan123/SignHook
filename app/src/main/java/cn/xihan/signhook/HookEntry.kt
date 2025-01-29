@@ -116,7 +116,7 @@ class HookEntry : IXposedHookLoadPackage {
                     Log.e(e)
                 }
             }
-            
+
         }
 
     }
