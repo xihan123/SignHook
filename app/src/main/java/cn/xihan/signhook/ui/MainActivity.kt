@@ -236,6 +236,7 @@ class MainActivity : AppCompatActivity() {
                             signatures.loadState.refresh is LoadState.Loading -> {
                                 LinearProgressIndicator(
                                     modifier = Modifier
+                                        .fillMaxWidth()
                                         .align(Alignment.TopCenter)
                                         .background(Color.Transparent)
                                 )
@@ -246,6 +247,7 @@ class MainActivity : AppCompatActivity() {
                                 Text(
                                     "错误信息: ${error.error.localizedMessage}",
                                     modifier = Modifier
+                                        .fillMaxWidth()
                                         .align(Alignment.BottomCenter)
                                         .padding(16.dp)
                                 )
@@ -255,6 +257,7 @@ class MainActivity : AppCompatActivity() {
                                 Text(
                                     "暂无数据",
                                     modifier = Modifier
+                                        .fillMaxWidth()
                                         .align(Alignment.TopCenter)
                                         .padding(16.dp)
                                 )
@@ -290,7 +293,7 @@ class MainActivity : AppCompatActivity() {
 
                                     item {
                                         if (signatures.loadState.append is LoadState.Loading) {
-                                            LinearProgressIndicator()
+                                            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
                                         }
                                     }
                                 }
