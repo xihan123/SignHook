@@ -105,7 +105,6 @@ class HookEntry : IXposedHookLoadPackage {
             ) { param ->
                 val packageInfo = param.result.safeCast<PackageInfo>() ?: return@hookAfterMethod
                 val pkg = packageInfo.packageName
-//                val flag = packageInfo.applicationInfo?.flags
                 try {
                     // 尝试读取签名
                     val signatures = sPrefs.getString(pkg, "")
@@ -113,18 +112,11 @@ class HookEntry : IXposedHookLoadPackage {
                         packageInfo.setObjectField("signatures", arrayOf((Signature(signatures))))
 //                        Log.d("packageName: ${lpparam.packageName}\npkg: $pkg\nflag: $flag\nsignatures: $signatures")
                     }
-                } catch (_: Exception) {
+                } catch (e: Exception) {
+                    Log.e(e)
                 }
-
-//                if (pkg == "com.qidian.QDReader") {
-////                    val signatures = packageInfo.signatures?.map { it.toCharsString() }
-////                    packageInfo.signatures = arrayOf((Signature(signatures)))
-////                    packageInfo.setObjectField("signatures", arrayOf((Signature(signatures))))
-//                    Log.d("packageName: ${lpparam.packageName}\npkg: $pkg\nflag: $flag\nsignatures: $signatures")
-//                }
             }
-
-
+            
         }
 
     }
