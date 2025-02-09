@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.0.1](https://github.com/xihan123/SignHook/compare/v3.0.0...v3.0.1) (2025-01-29)
+
+
+### Bug Fixes
+
+* **core:** 调整commitCount增量值 ([60134c0](https://github.com/xihan123/SignHook/commit/60134c0e27ac52b02d96bcd687ff999d54c26602))
+* **ui:** 优化加载指示器布局 ([5558259](https://github.com/xihan123/SignHook/commit/5558259b63f47c51d89b4b26e6ca15ad3058b1ab))
+* 修改异常处理以记录错误信息 ([8a49d18](https://github.com/xihan123/SignHook/commit/8a49d1816794cfb8d343d866312f3e7adcf3e699))
+* 修正proguard规则以保留特定类和接口 ([ac50d04](https://github.com/xihan123/SignHook/commit/ac50d048c27fea646e31a96e6c7a377d3cd65203))
+
+
+### Docs
+
+* 更新README.MD中使用流程描述 ([9d10e7b](https://github.com/xihan123/SignHook/commit/9d10e7b65f72aae8e1229561fa34a0c33815617f))
+
 ## [3.0.0](https://github.com/xihan123/SignHook/compare/v3.0.0...v3.0.0) (2025-01-27)
 
 
