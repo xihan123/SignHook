@@ -1,5 +1,22 @@
 # Changelog
 
+## [3.0.2](https://github.com/xihan123/SignHook/compare/v3.0.1...v3.0.2) (2025-02-09)
+
+
+### Features
+
+* 适配支持TIM ([d73f0db](https://github.com/xihan123/SignHook/commit/d73f0dbff86b8302c1bc1f029890faaa94ac3e15))
+
+
+### CI
+
+* **release:** 发布新版本 ([3a7d0e6](https://github.com/xihan123/SignHook/commit/3a7d0e67c2f3807c8a476283a865b974855c6979))
+
+
+### Miscellaneous
+
+* 移除调试日志输出 ([a2bcfca](https://github.com/xihan123/SignHook/commit/a2bcfcaf9742c3dfa272e5b1fcf954eaf7cf39ed))
+
 ## [3.0.1](https://github.com/xihan123/SignHook/compare/v3.0.0...v3.0.1) (2025-01-29)
 
 
