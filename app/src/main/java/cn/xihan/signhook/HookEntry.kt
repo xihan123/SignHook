@@ -93,7 +93,7 @@ class HookEntry : IXposedHookLoadPackage {
                     }
 
                 })
-                Log.d("sPrefs: ${sPrefs.all}")
+//                Log.d("sPrefs: ${sPrefs.all}")
             }
 
 
