@@ -35,7 +35,7 @@
             android:value="90" />
         <meta-data
             android:name="xposedscope"
-            android:value="com.tencent.mobileqq;com.tencent.mm" />
+            android:value="com.tencent.mobileqq;com.tencent.mm;com.tencent.tim" />
     </application>
 
 </manifest>

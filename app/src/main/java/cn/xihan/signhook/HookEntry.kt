@@ -33,7 +33,7 @@ class HookEntry : IXposedHookLoadPackage {
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         // 如果包名是QQ或者微信，则进行hook
-        if (lpparam.packageName == "com.tencent.mobileqq" || lpparam.packageName == "com.tencent.mm") {
+        if (lpparam.packageName == "com.tencent.mobileqq" || lpparam.packageName == "com.tencent.mm" || lpparam.packageName == "com.tencent.tim") {
 
             Instrumentation::class.java.hookBeforeMethod(
                 "callApplicationOnCreate", Application::class.java
