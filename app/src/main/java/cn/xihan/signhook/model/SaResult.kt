@@ -1,5 +1,6 @@
 package cn.xihan.signhook.model
 
+import androidx.annotation.Keep
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -9,6 +10,7 @@ import kotlinx.serialization.Serializable
  * @创建时间 : 2025/1/26 15:15
  * @介绍 :
  */
+@Keep
 @Serializable
 data class SaResult<T>(
     @SerialName("code") val code: Int = 0,
