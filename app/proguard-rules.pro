@@ -69,11 +69,11 @@ public *** getLocalOverscrollConfiguration(...);
 }
 #---------------------------------序列化指令区---------------------------------
 -dontnote kotlinx.serialization.SerializersKt
--keep,includedescriptorclasses class cn.xihan.signhook.**$$serializer { *; }
--keepclassmembers class cn.xihan.signhook.** {
+-keep,includedescriptorclasses class cn.xihan.signhook.model.**$$serializer { *; }
+-keepclassmembers class cn.xihan.signhook.model.** {
     *** Companion;
 }
--keepclasseswithmembers class cn.xihan.signhook.** {
+-keepclasseswithmembers class cn.xihan.signhook.model.** {
     kotlinx.serialization.KSerializer serializer(...);
 }
 
