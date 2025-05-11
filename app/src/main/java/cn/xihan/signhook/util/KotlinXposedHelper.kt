@@ -3,6 +3,7 @@ package cn.xihan.signhook.util
 
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodHook.MethodHookParam
+import de.robv.android.xposed.XposedBridge.hookAllMethods
 import de.robv.android.xposed.XposedBridge.invokeOriginalMethod
 import de.robv.android.xposed.XposedHelpers.ClassNotFoundError
 import de.robv.android.xposed.XposedHelpers.callMethod
@@ -26,7 +27,6 @@ import de.robv.android.xposed.XposedHelpers.setLongField
 import de.robv.android.xposed.XposedHelpers.setObjectField
 import de.robv.android.xposed.XposedHelpers.setStaticObjectField
 import java.lang.reflect.Field
-
 
 /**
  * @项目名 : SignHook
@@ -90,6 +90,26 @@ inline fun String.hookAfterMethod(
     Log.e(e)
     null
 }
+
+fun Class<*>.hookAllMethods(methodName: String?, hooker: XC_MethodHook): Set<XC_MethodHook.Unhook> =
+    try {
+        hookAllMethods(this, methodName, hooker)
+    } catch (e: NoSuchMethodError) {
+        Log.e(e)
+        emptySet()
+    } catch (e: ClassNotFoundError) {
+        Log.e(e)
+        emptySet()
+    } catch (e: ClassNotFoundException) {
+        Log.e(e)
+        emptySet()
+    }
+
+inline fun Class<*>.hookAfterAllMethods(methodName: String?, crossinline hooker: Hooker) =
+    hookAllMethods(methodName, object : XC_MethodHook() {
+        override fun afterHookedMethod(param: MethodHookParam) = param.callHooker(hooker)
+
+    })
 
 fun MethodHookParam.invokeOriginalMethod(): Any? = invokeOriginalMethod(method, thisObject, args)
 
