@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.0.3](https://github.com/xihan123/SignHook/compare/v3.0.2...v3.0.3) (2025-05-11)
+
+
+### Features
+
+* **CustomCookiesStorage:** 优化 Cookie 存储和获取逻辑 ([6a29954](https://github.com/xihan123/SignHook/commit/6a299545af28d0f90182c2ba561ecce48dbcdbc9))
+* **util:** 添加全局方法钩选助手函数 ([c91f8b5](https://github.com/xihan123/SignHook/commit/c91f8b51ca5d7908a0960cb5c36cbb4f00af908c))
+
+
+### Miscellaneous
+
+* **master:** release 3.0.2 ([767848f](https://github.com/xihan123/SignHook/commit/767848feb8354b1484e9024feb030e44053daf2d))
+
 ## [3.0.2](https://github.com/xihan123/SignHook/compare/v3.0.2...v3.0.2) (2025-05-11)
 
 
