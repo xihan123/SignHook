@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.3](https://github.com/xihan123/SignHook/compare/v3.0.3...v3.0.3) (2025-07-21)
+
+
+### Docs
+
+* 更新 README 中的徽标和链接 ([d4f2007](https://github.com/xihan123/SignHook/commit/d4f20075fed821335e98917c33ba1a84e5e22b65))
+
 ## [3.0.3](https://github.com/xihan123/SignHook/compare/v3.0.2...v3.0.3) (2025-05-11)
 
 
