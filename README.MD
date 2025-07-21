@@ -4,6 +4,7 @@
 [![Android CI](https://github.com/xihan123/SignHook/actions/workflows/build.yml/badge.svg)](https://github.com/xihan123/SignHook/actions/workflows/build.yml)
 [![Latest Release](https://img.shields.io/github/release/xihan123/SignHook.svg)](https://github.com/xihan123/SignHook/releases)
 ![downloads](https://img.shields.io/github/downloads/xihan123/SignHook/total)
+[![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
 
 ---
 
