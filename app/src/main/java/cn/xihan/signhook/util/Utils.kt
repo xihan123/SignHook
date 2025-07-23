@@ -48,6 +48,11 @@ val packageName: String by lazy { currentContext.packageName }
 val sPrefs: SharedPreferences
     get() = currentContext.getSharedPreferences("packages", Context.MODE_MULTI_PROCESS)
 
+@Suppress("DEPRECATION")
+fun Context.getSharedPreferences(): SharedPreferences =
+    getSharedPreferences("packages", Context.MODE_MULTI_PROCESS)
+
+
 inline fun <reified T> Any?.safeCast(): T? = this as? T
 
 fun Context.toast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
@@ -212,8 +217,7 @@ object Utils : KoinComponent {
 
         fun login() = appGlobalScope.launch(Dispatchers.IO) {
             val result = remoteRepository.login(
-                email.editText.text.toString(),
-                password.editText.text.toString()
+                email.editText.text.toString(), password.editText.text.toString()
             )
             if (result.isSuccess()) {
                 HostSettings.apply {
