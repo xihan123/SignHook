@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -23,7 +24,7 @@ val latestTag = repo?.latestTag?.removePrefix("v") ?: "3.x.x-SNAPSHOT"
 val verCode by extra(commitCount)
 val verName by extra(latestTag)
 println("verCode: $verCode, verName: $verName")
-val androidTargetSdkVersion by extra(35)
+val androidTargetSdkVersion by extra(36)
 val androidMinSdkVersion by extra(26)
 
 android {
@@ -31,9 +32,7 @@ android {
     compileSdk = androidTargetSdkVersion
 
     androidResources.additionalParameters += arrayOf(
-        "--allow-reserved-package-id",
-        "--package-id",
-        "0x23"
+        "--allow-reserved-package-id", "--package-id", "0x23"
     )
 
     signingConfigs {
@@ -68,8 +67,7 @@ android {
         release {
             isMinifyEnabled = true
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
             applicationVariants.all {
                 outputs.all {
@@ -125,24 +123,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-        freeCompilerArgs = listOf(
-            "-Xno-param-assertions",
-            "-Xno-call-assertions",
-            "-Xno-receiver-assertions",
-//            "-language-version=2.0",
-        )
-    }
-
-
     packagingOptions.apply {
         resources.excludes += mutableSetOf(
-            "META-INF/**",
-            "**/*.properties",
-            "schema/**",
-            "**.bin",
-            "kotlin-tooling-metadata.json"
+            "META-INF/**", "**/*.properties", "schema/**", "**.bin", "kotlin-tooling-metadata.json"
         )
         dex.useLegacyPackaging = true
     }
@@ -152,6 +135,14 @@ android {
     dependenciesInfo.includeInApk = false
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+        freeCompilerArgs = listOf(
+            "-Xno-param-assertions", "-Xno-call-assertions", "-Xno-receiver-assertions"
+        )
+    }
+}
 
 dependencies {
 
@@ -202,38 +193,44 @@ dependencies {
     compileOnly(libs.xposed.api)
 }
 
-val restartQQ = task("restartQQ").apply {
-    doLast {
-        exec {
-            commandLine("adb", "shell", "am", "force-stop", "com.tencent.mobileqq")
-        }
-        exec {
-            commandLine(
-                "adb",
-                "shell",
-                "am",
-                "start",
-                "$(pm resolve-activity --components com.tencent.mobileqq)"
-            )
-        }
-    }
+// 定义停止 QQ 的任务
+val stopQQ = tasks.register<Exec>("stopQQ") {
+    commandLine("cmd", "/c", "adb", "shell", "am", "force-stop", "com.tencent.mobileqq")
 }
 
-val restartWx = task("restartWx").apply {
-    doLast {
-        exec {
-            commandLine("adb", "shell", "am", "force-stop", "com.tencent.mm")
-        }
-        exec {
-            commandLine(
-                "adb",
-                "shell",
-                "am",
-                "start",
-                "$(pm resolve-activity --components com.tencent.mm)"
-            )
-        }
-    }
+// 定义启动 QQ 的任务
+val startQQ = tasks.register<Exec>("startQQ") {
+    // 注意：原命令中使用了 shell 的 $()，这需要通过 shell 解释器执行
+    // 因为 Exec 任务默认不经过 shell，所以需显式调用 sh -c
+    commandLine(
+//        "sh", "-c",
+        "cmd",
+        "/c",
+        "adb shell am start \"$(pm resolve-activity --components com.tencent.mobileqq)\""
+    )
+}
+
+// 主任务依赖上述两个任务
+val restartQQ = tasks.register("restartQQ") {
+    dependsOn(stopQQ, startQQ)
+}
+
+// 停止微信
+val stopWx = tasks.register<Exec>("stopWx") {
+    commandLine("cmd", "/c", "adb", "shell", "am", "force-stop", "com.tencent.mm")
+}
+
+// 启动微信（注意：需通过 shell 解析 $()）
+val startWx = tasks.register<Exec>("startWx") {
+    commandLine(
+//        "sh", "-c",
+        "cmd", "/c", "adb shell am start \"$(pm resolve-activity --components com.tencent.mm)\""
+    )
+}
+
+// 重启微信的主任务
+val restartWx = tasks.register("restartWx") {
+    dependsOn(stopWx, startWx)
 }
 
 afterEvaluate {
