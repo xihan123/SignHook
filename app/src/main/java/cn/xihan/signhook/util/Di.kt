@@ -24,7 +24,7 @@ import org.koin.dsl.lazyModule
  * @创建时间 : 2025/1/26 15:07
  * @介绍 :
  */
-const val API_PATH = "https://api.signhelper.sbs/"
+const val API_PATH = "https://signhelper.xihan.website/"
 
 val appModule = lazyModule {
     singleOf(::provideHttpClient)
