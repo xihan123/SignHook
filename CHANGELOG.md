@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.5](https://github.com/xihan123/SignHook/compare/v3.0.4...v3.0.5) (2025-10-01)
+
+
+### Features
+
+* **util:** 更新API路径地址 ([1a5eec3](https://github.com/xihan123/SignHook/commit/1a5eec3f2f73b3907b0d5d9a3b7828448eb5b9dc))
+
+
+### Miscellaneous
+
+* **deps:** 更新项目依赖库版本 ([e35073c](https://github.com/xihan123/SignHook/commit/e35073cd3261c819f03732848d1e099bcdc30f23))
+
 ## [3.0.4](https://github.com/xihan123/SignHook/compare/v3.0.3...v3.0.4) (2025-07-23)
 
 
