@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.edit
 import cn.xihan.signhook.model.isSuccess
 import de.robv.android.xposed.XposedBridge
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -70,7 +71,7 @@ fun Context.copyToClipboard(text: String) {
 
 object Log {
 
-    private const val TAG = "LSPosed-Bridge"
+    private const val TAG = "LSPD-XPOSED"
 
     @JvmStatic
     private fun doLog(f: (String, String) -> Int, obj: Any?, toXposed: Boolean = false) {
@@ -184,7 +185,7 @@ object Utils : KoinComponent {
                 }
             }
         } else {
-            if (result.message.contains("token 无效")) {
+            if (result.message.contains("未能读取到有效")) {
                 showLoginDialog(activity)
             }
         }
@@ -248,12 +249,12 @@ object Utils : KoinComponent {
     fun getUserPackages(activity: Activity) = appGlobalScope.launch(Dispatchers.IO) {
         val result = remoteRepository.getUserPackages()
         if (result.isSuccess() && !result.data.isNullOrEmpty()) {
-            val edit = packageSharedPreferences.edit()
-            edit.clear()
-            result.data.forEach {
-                edit.putString(it.packageName, it.signatureValue)
+            packageSharedPreferences.edit(true) {
+                clear()
+                result.data.forEach {
+                    putString(it.packageName, it.signatureValue)
+                }
             }
-            edit.apply()
             withContext(Dispatchers.Main.immediate) {
                 activity.toast("获取到 ${result.data.size} 个应用包名")
             }
