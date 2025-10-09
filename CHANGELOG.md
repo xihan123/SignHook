@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.6](https://github.com/xihan123/SignHook/compare/v3.0.5...v3.0.6) (2025-10-09)
+
+
+### Features
+
+* **hook:** 优化签名读取逻辑并调整代码结构 ([161e409](https://github.com/xihan123/SignHook/commit/161e409ebbadb8a86c61f711ebc7025d912601d1))
+
+
+### Bug Fixes
+
+* **util:** 更新日志标签和签名处理逻辑 ([5e29032](https://github.com/xihan123/SignHook/commit/5e29032b94a0621f114962cb9c1dd82586c27028))
+
 ## [3.0.5](https://github.com/xihan123/SignHook/compare/v3.0.4...v3.0.5) (2025-10-01)
 
 
