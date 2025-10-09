@@ -136,44 +136,46 @@ class HookEntry : IXposedHookLoadPackage {
 
                 })
 //                Log.d("sPrefs: ${sPrefs.all}")
-            }
 
-            "android.app.ApplicationPackageManager".hookAfterMethod(
-                lpparam.classLoader, "getPackageInfo", String::class.java, Int::class.java
-            ) { param ->
-                val packageInfo = param.result.safeCast<PackageInfo>() ?: return@hookAfterMethod
-                val pkg = packageInfo.packageName
-                try {
-                    val signatureKey = getSignatureKey(pkg)
+                "android.app.ApplicationPackageManager".hookAfterMethod(
+                    lpparam.classLoader, "getPackageInfo", String::class.java, Int::class.java
+                ) { param ->
+                    val packageInfo = param.result.safeCast<PackageInfo>() ?: return@hookAfterMethod
+                    val pkg = packageInfo.packageName
+                    try {
+                        val signatureKey = getSignatureKey(pkg)
 
-                    // 优先从缓存读取签名
-                    var signatures = signatureCache[signatureKey]
+                        // 优先从缓存读取签名
+                        var signatures = signatureCache[signatureKey]
 
-                    // 如果缓存中没有，尝试从SharedPreferences读取
-                    if (signatures.isNullOrBlank()) {
-                        signatures = sPrefs.getString(signatureKey, "")
-                    }
-
-                    // 如果SharedPreferences中也没有，尝试从APK的config.json中读取
-                    if (signatures.isNullOrBlank()) {
-                        signatures =
-                            readSignatureFromApkConfig(packageInfo.applicationInfo?.sourceDir, pkg)
-                        // 如果从APK读取到了签名，保存到sPrefs和缓存中
-                        if (!signatures.isNullOrBlank()) {
-                            sPrefs.edit(true) { putString(signatureKey, signatures) }
-                            signatureCache[signatureKey] = signatures
+                        // 如果缓存中没有，尝试从SharedPreferences读取
+                        if (signatures.isNullOrBlank()) {
+                            signatures = sPrefs.getString(signatureKey, "")
                         }
-                    }
 
-                    if (!signatures.isNullOrBlank()) {
-                        packageInfo.setObjectField("signatures", arrayOf((Signature(signatures))))
+                        // 如果SharedPreferences中也没有，尝试从APK的config.json中读取
+                        if (signatures.isNullOrBlank()) {
+                            signatures = readSignatureFromApkConfig(
+                                packageInfo.applicationInfo?.sourceDir, pkg
+                            )
+                            // 如果从APK读取到了签名，保存到sPrefs和缓存中
+                            if (!signatures.isNullOrBlank()) {
+                                sPrefs.edit(true) { putString(signatureKey, signatures) }
+                                signatureCache[signatureKey] = signatures
+                            }
+                        }
+
+                        if (!signatures.isNullOrBlank()) {
+                            packageInfo.setObjectField(
+                                "signatures", arrayOf((Signature(signatures)))
+                            )
 //                        Log.d("packageName: ${lpparam.packageName}\npkg: $pkg\nflag: $flag\nsignatures: $signatures")
+                        }
+                    } catch (e: Exception) {
+                        Log.e(e)
                     }
-                } catch (e: Exception) {
-                    Log.e(e)
                 }
             }
-
         }
 
     }
