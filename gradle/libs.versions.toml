@@ -1,0 +1,77 @@
+[versions]
+activity = "1.11.0"
+agp = "8.13.1"
+appcompat = "1.7.1"
+coil = "3.3.0"
+compose-bom = "2025.11.00"
+core-ktx = "1.17.0"
+koin = "4.1.1"
+kotlin = "2.2.21"
+kotlinx-coroutines-core = "1.10.2"
+kotlinx-serialization-json = "1.9.0"
+ksp = "2.2.21-2.0.4"
+lifecycle = "2.9.4"
+material = "1.13.0"
+material-icons = "1.7.8"
+material3 = "1.4.0"
+navigation-compose = "2.9.6"
+orbit = "11.0.0"
+paging = "3.3.6"
+permissions = "20.0"
+room = "2.8.3"
+
+
+[libraries]
+activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
+android-material = { module = "com.google.android.material:material", version.ref = "material" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
+compose-coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+compose-foundation = { module = "androidx.compose.foundation:foundation" }
+compose-material = { module = "androidx.compose.material:material" }
+compose-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "material-icons" }
+compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons" }
+compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
+compose-runtime = { module = "androidx.compose.runtime:runtime" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
+koin-android = { module = "io.insert-koin:koin-android" }
+koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
+koin-core-coroutines = { module = "io.insert-koin:koin-core-coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines-core" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-core" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+kv-storage = { module = "com.github.xihan123:kv-storage", version = "1.0.4" }
+lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycle" }
+lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+multidex = { module = "androidx.multidex:multidex", version = "2.0.1" }
+orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" }
+orbit-core = { module = "org.orbit-mvi:orbit-core", version.ref = "orbit" }
+orbit-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbit" }
+paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }
+paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
+paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging" }
+xxpermissions = { module = "com.github.getActivity:XXPermissions", version.ref = "permissions" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+runtime = { module = "androidx.compose.runtime:runtime" }
+startup = { module = "androidx.startup:startup-runtime", version = "1.2.0" }
+xposed-api = { module = "de.robv.android.xposed:api", version = "82" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jgit = { id = "org.lsposed.lsplugin.jgit", version = "1.1" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+

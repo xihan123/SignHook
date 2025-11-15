@@ -1,0 +1,47 @@
+# Gradle
+.gradle/
+build/
+*.apk
+*.aab
+
+# Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+local.properties
+
+# Build outputs
+app/build/
+*.class
+*.jar
+*.war
+*.ear
+
+# Kotlin
+.kotlin/
+
+# IDE
+.vscode/
+.DS_Store
+
+# Sensitive files
+keystore.properties
+*.keystore
+*.jks
+
+# Archives
+归档/
+release/
+
+# Misc
+*.log
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace

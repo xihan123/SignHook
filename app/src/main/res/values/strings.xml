@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">签名助手</string>
+    <string name="scope_package_name">作用域包名</string>
+    <string name="title_package_name">包名: </string>
+    <string name="title_app_name">应用名称: </string>
+    <string name="title_original_signature">原始签名: </string>
+    <string name="title_fake_signature">伪造签名: </string>
+    <string name="title_redirect_status">重定向状态：</string>
+    <string name="title_redirect_path">重定向路径：</string>
+    <string name="title_select_apk">选择Apk</string>
+    <string name="fake_signature_tip">输入需要伪造签名</string>
+    <string name="fake_signature_tip_text">这意味着目标作用域内的Apk将读取到伪造的签名,如果你不知道这意味着什么,请不要随意修改!</string>
+    <string name="unknown_error">未知错误</string>
+    <string name="get_sign_error">获取签名错误</string>
+    <string name="get_file_error">获取文件错误</string>
+    <string name="clear">清空</string>
+    <string name="exit">退出</string>
+    <string name="hide_icon">隐藏图标</string>
+</resources>
