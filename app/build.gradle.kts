@@ -4,7 +4,6 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jgit)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.parcelize)
@@ -57,7 +56,7 @@ android {
         buildConfigField("long", "BUILD_TIMESTAMP", "${System.currentTimeMillis()}L")
 
         ndk {
-            abiFilters += setOf("arm64-v8a", "armeabi-v7a")
+            abiFilters += setOf("arm64-v8a")
         }
 
         signingConfig = signingConfigs.getByName("xihantest")
@@ -75,53 +74,6 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
-
-            applicationVariants.all {
-                outputs.all {
-                    this as com.android.build.gradle.internal.api.ApkVariantOutputImpl
-                    if (buildType.name != "debug" && outputFileName.endsWith(".apk")) {
-                        val apkName = "SignHook-release_${verName}_$verCode.apk"
-                        outputFileName = apkName
-                    }
-                }
-                tasks.configureEach {
-                    var maybeNeedCopy = false
-                    if (name.startsWith("assembleRelease")) {
-                        maybeNeedCopy = true
-                    }
-                    if (maybeNeedCopy) {
-                        doLast {
-                            this@all.outputs.all {
-                                this as com.android.build.gradle.internal.api.ApkVariantOutputImpl
-                                if (buildType.name != "debug" && outputFileName.endsWith(".apk")) {
-                                    if (outputFile != null && outputFileName.endsWith(".apk")) {
-                                        val targetDir =
-                                            rootProject.file("归档/v${verName}-${verCode}")
-                                        val targetDir2 = rootProject.file("release")
-                                        targetDir.mkdirs()
-                                        targetDir2.mkdirs()
-                                        println("path: ${outputFile.absolutePath}")
-                                        copy {
-                                            from(outputFile)
-                                            into(targetDir)
-                                        }
-                                        copy {
-                                            from(outputFile)
-                                            into(targetDir2)
-                                        }
-                                        copy {
-                                            from(rootProject.file("app/build/outputs/mapping/release/mapping.txt"))
-                                            into(targetDir)
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-                    }
-
-                }
-            }
         }
     }
     compileOptions {
@@ -134,8 +86,8 @@ android {
         buildConfig = true
     }
 
-    packagingOptions.apply {
-        excludes += setOf("lib/**/libandroidx.graphics.path.so")
+    packaging.apply {
+        jniLibs.excludes += setOf("lib/**/libandroidx.graphics.path.so")
         resources.excludes += mutableSetOf(
             "META-INF/*******",
             "**/*.txt",
@@ -148,11 +100,11 @@ android {
         dex.useLegacyPackaging = true
     }
 
-    applicationVariants.all {
-        addJavaSourceFoldersToModel(file("build/generated/ksp/$name/kotlin"))
-    }
-
     lint.abortOnError = false
+}
+
+base {
+    archivesName = "SignHook-${verName}_$verCode"
 }
 
 dependencies {
@@ -243,5 +195,5 @@ val restartWx = tasks.register("restartWx") {
 }
 
 afterEvaluate {
-//    tasks.getByPath("installDebug").finalizedBy(restartQQ)
+    tasks.getByPath("installDebug").finalizedBy(stopQQ)
 }
