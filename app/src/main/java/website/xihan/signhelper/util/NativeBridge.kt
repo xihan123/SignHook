@@ -1,19 +1,35 @@
 package website.xihan.signhelper.util
 
+import android.content.Context
+
+
 object NativeBridge {
+
     init {
         try {
             System.loadLibrary("nativehook")
-        } catch (_: Throwable) {
+        } catch (e: Throwable) {
+            Log.e("loadLibrary failed: $e")
         }
     }
 
-    /**
-     * 配置路径重定向：
-     *  enable=true 并且 src/dst 都是非空字符串 => 生效
-     *  否则关闭（清空配置）
-     */
     @JvmStatic
-    external fun enablePathRedirect(srcPath: String?, dstPath: String?, enable: Boolean)
+    external fun addRule(src: String?, dst: String?)
 
+    @JvmStatic
+    external fun initHooks(cacheDir: String)
+
+    @JvmStatic
+    external fun setLogEnabled(enabled: Boolean)
+
+    fun addRedirectRule(src: String, dst: String) {
+        Log.d("[NativeBridge] Adding rule: $src -> $dst")
+        addRule(src, dst)
+    }
+
+    fun initialize(context: Context) {
+        val cacheDir = context.cacheDir.absolutePath
+        Log.d("[NativeBridge] Initializing with cache dir: $cacheDir")
+        initHooks(cacheDir)
+    }
 }

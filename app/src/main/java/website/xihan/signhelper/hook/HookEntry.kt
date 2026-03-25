@@ -72,9 +72,13 @@ class HookEntry : IXposedHookLoadPackage {
                     HostKVManager.createKVHelper(REDIRECT_PATH).getString(lpparam.packageName)
 //                Log.d("Redirect path: $redirectPath")
                 if (redirectPath.isBlank()) return@runCatching
-                NativeBridge.enablePathRedirect(
-                    application.applicationInfo.sourceDir, redirectPath, true
-                )
+                NativeBridge.apply {
+                    initialize(application)
+                    setLogEnabled(BuildConfig.DEBUG)
+                    addRedirectRule(
+                        application.applicationInfo.sourceDir, redirectPath
+                    )
+                }
             }.onFailure {
                 Log.e("Failed to setup redirect path")
             }
