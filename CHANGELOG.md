@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.0.2](https://github.com/xihan123/SignHook/compare/v4.0.1...v4.0.2) (2026-03-25)
+
+
+### Bug Fixes
+
+* **manifest:** 添加系统权限声明 ([f0bd1e1](https://github.com/xihan123/SignHook/commit/f0bd1e114e7d9d771c46f474a5f39ec8d0bda62e))
+
+
+### Miscellaneous
+
+* **build:** 更新Gradle和依赖库版本 ([1609df8](https://github.com/xihan123/SignHook/commit/1609df8ffe3d0b78a946b3ef014effa450dc37ae))
+* **release:** 更新发布版本号至 4.0.2 ([e669afc](https://github.com/xihan123/SignHook/commit/e669afc47cbd0892566bb4b6bfc15d021e7bddd7))
+
 ## [4.0.1](https://github.com/xihan123/SignHook/compare/v4.0.0...v4.0.1) (2025-12-22)
 
 
