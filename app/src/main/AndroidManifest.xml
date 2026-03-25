@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:name=".MyApp"
@@ -50,5 +51,9 @@
             android:enabled="true"
             android:exported="true" />
     </application>
-
+    <uses-permission android:name="android.permission.SEND_BROADCAST" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="ManifestOrder,QueryAllPackagesPermission" />
 </manifest>
