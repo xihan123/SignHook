@@ -14,7 +14,7 @@ import android.util.Log as ALog
 
 object Log {
 
-    private const val TAG = "KVContentProvider"
+    private const val TAG = "SignHook"
     private val handler by lazy { Handler(Looper.getMainLooper()) }
     private var toast: Toast? = null
     private lateinit var logFile: File
@@ -36,7 +36,7 @@ object Log {
             }
         } else {
             f(TAG, str)
-            if (toXposed) XposedBridge.log("$TAG : $str")
+            if (toXposed) runCatching { XposedBridge.log("$TAG : $str") }
         }
     }
 
@@ -66,6 +66,6 @@ object Log {
         doLog(ALog::w, obj)
     }
 
-    private const val maxLength = 100
+    private const val maxLength = 3000
 }
 
