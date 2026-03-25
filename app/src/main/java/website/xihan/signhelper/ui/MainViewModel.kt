@@ -14,7 +14,7 @@ import website.xihan.signhelper.model.ApkSignature
 import website.xihan.signhelper.repository.LocalRepository
 import website.xihan.signhelper.util.Const.FAKE_SIGNATURE
 import website.xihan.signhelper.util.Const.REDIRECT_PATH
-import website.xihan.signhelper.util.ModuleConfig.scopes
+import website.xihan.signhelper.util.ModuleConfig.updateScope
 
 /**
  * @项目名 : 签名助手
@@ -88,7 +88,7 @@ class MainViewModel(
                             .associate { it.packageName to it.forgedSignature }
 
                     forgedPackages.takeIf { it.isNotEmpty() }?.let {
-                        scopes = forgedPackages.map { (key, value) -> key }.toSet()
+                        updateScope(forgedPackages.map { (key, value) -> key }.toSet())
                         KVStorage.apply {
                             clearAll(REDIRECT_PATH)
                             putAll(FAKE_SIGNATURE, it)
