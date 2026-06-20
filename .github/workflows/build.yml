@@ -1,0 +1,99 @@
+name: Android CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag, example: v5.0.0'
+        required: true
+        type: string
+  push:
+    tags:
+    - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest ]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+        fetch-depth: 0
+
+    - name: Prepare release tag
+      shell: bash
+      env:
+        EVENT_NAME: ${{ github.event_name }}
+        INPUT_TAG: ${{ inputs.tag }}
+      run: |
+        if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+          release_tag="$INPUT_TAG"
+        else
+          release_tag="${GITHUB_REF_NAME}"
+        fi
+
+        if [[ ! "$release_tag" =~ ^v[0-9A-Za-z._-]+$ ]]; then
+          echo "Release tag must match ^v[0-9A-Za-z._-]+$, got: $release_tag"
+          exit 1
+        fi
+
+        if git rev-parse -q --verify "refs/tags/$release_tag" >/dev/null; then
+          git checkout --detach "$release_tag"
+        else
+          git tag "$release_tag"
+        fi
+
+        echo "RELEASE_TAG=$release_tag" >> "$GITHUB_ENV"
+
+    - name: base64-to-file
+      id: write_file
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: 'key.jks'
+        encodedString: ${{ secrets.SIGNING_KEY }}
+
+    - name: Write key
+      env:
+        KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.ALIAS }}
+        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        STORE_FILE: ${{ steps.write_file.outputs.filePath }}
+      run: |
+        {
+          printf 'storePassword=%s\n' "$KEY_STORE_PASSWORD"
+          printf 'keyAlias=%s\n' "$KEY_ALIAS"
+          printf 'keyPassword=%s\n' "$KEY_PASSWORD"
+          printf 'storeFile=%s\n' "$STORE_FILE"
+        } > keystore.properties
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'gradle'
+
+    - name: Build with Gradle
+      run: |
+        chmod +x gradlew
+        ./gradlew --no-configuration-cache assembleRelease
+
+    - name: Upload assets to a Release
+      env:
+        GH_TOKEN: ${{ secrets.RELEASE_TOKEN || github.token }}
+      run: |
+        release_target="$(git rev-parse HEAD)"
+        if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+          gh release create "$RELEASE_TAG" --target "$release_target" --title "$RELEASE_TAG" --notes ""
+        fi
+        gh release upload "$RELEASE_TAG" app/build/outputs/apk/release/*.apk --clobber
