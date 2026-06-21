@@ -13,6 +13,7 @@ import androidx.core.graphics.createBitmap
 import kotlinx.coroutines.flow.Flow
 import java.io.ByteArrayOutputStream
 import java.util.Locale
+import kotlin.math.roundToInt
 
 class InstalledAppRepository(
     context: Context, private val dao: InstalledAppDao
@@ -93,8 +94,15 @@ class InstalledAppRepository(
 
 
     private fun Drawable.toPngBytes(): ByteArray? {
-        val width = intrinsicWidth.takeIf { it > 0 } ?: DEFAULT_ICON_SIZE
-        val height = intrinsicHeight.takeIf { it > 0 } ?: DEFAULT_ICON_SIZE
+        val sourceWidth = intrinsicWidth.takeIf { it > 0 } ?: DEFAULT_ICON_SIZE
+        val sourceHeight = intrinsicHeight.takeIf { it > 0 } ?: DEFAULT_ICON_SIZE
+        val scale = minOf(
+            1f,
+            DEFAULT_ICON_SIZE.toFloat() / sourceWidth,
+            DEFAULT_ICON_SIZE.toFloat() / sourceHeight
+        )
+        val width = (sourceWidth * scale).roundToInt().coerceAtLeast(1)
+        val height = (sourceHeight * scale).roundToInt().coerceAtLeast(1)
         val bitmap = createBitmap(width, height)
         val canvas = Canvas(bitmap)
         val oldBounds = copyBounds()
